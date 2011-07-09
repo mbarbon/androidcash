@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NewExpense</string>
+    <string name="account_from_prompt">From account</string>
+    <string name="account_to_prompt">To account</string>
+    <string name="transfer_amount_prompt">Amount</string>
+    <string name="transfer_date_prompt">Date</string>
+    <string name="add_transaction">Add transaction</string>
+    <string name="from_transaction_template">Use template</string>
 </resources>
