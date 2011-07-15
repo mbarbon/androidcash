@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">NewExpense</string>
+    <string name="app_name">Android Cash</string>
+    <string name="new_expense">New expense</string>
     <string name="account_from_prompt">From account</string>
     <string name="account_to_prompt">To account</string>
     <string name="transfer_amount_prompt">Amount</string>

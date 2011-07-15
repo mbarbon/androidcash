@@ -18,8 +18,7 @@ import android.widget.TextView;
 
 import java.util.Date;
 
-public class NewExpense extends Activity
-{
+public class NewExpense extends Activity {
     private EditText transferAmount;
 
     private TextView transferDateView;
