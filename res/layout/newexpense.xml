@@ -22,7 +22,7 @@
       android:text="@string/account_to_prompt"
       />
   <Spinner
-      android:id="@+id/from_account"
+      android:id="@+id/to_account"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:prompt="@string/account_to_prompt"
