@@ -5,11 +5,15 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 
 import android.os.Bundle;
 
 import android.text.format.DateFormat;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.DatePicker;
@@ -57,6 +61,27 @@ public class NewExpense extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = new MenuInflater(this);
+
+        inflater.inflate(R.menu.newtransaction, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.new_account:
+            addNewAccount();
+
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
         case DATE_DIALOG_ID:
@@ -85,6 +110,12 @@ public class NewExpense extends Activity {
 
     private void setTransferDate(int year, int month, int day) {
         setTransferDate(new Date(year - 1900, month, day));
+    }
+
+    private void addNewAccount() {
+        Intent intent = new Intent("org.barbon.acash.NEW_ACCOUNT");
+
+        startActivity(intent);
     }
 
     // event handlers

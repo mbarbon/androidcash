@@ -8,4 +8,8 @@
     <string name="transfer_date_prompt">Date</string>
     <string name="add_transaction">Add transaction</string>
     <string name="from_transaction_template">Use template</string>
+    <string name="new_account">New account</string>
+    <string name="account_description">Description</string>
+    <string name="gnucash_account_name">GNUCash account</string>
+    <string name="add_account">Add account</string>
 </resources>

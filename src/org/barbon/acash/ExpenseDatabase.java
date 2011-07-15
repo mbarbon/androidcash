@@ -1,6 +1,7 @@
 package org.barbon.acash;
 
 import android.content.Context;
+import android.content.ContentValues;
 
 import android.database.Cursor;
 
@@ -46,6 +47,16 @@ public class ExpenseDatabase {
             "SELECT id AS _id, " + ACCOUNT_DESCRIPTION_COLUMN +
             "    FROM " + ACCOUNTS_TABLE +
             "    ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN, null);
+    }
+
+    public boolean insertAccount(String description, String gnuCash) {
+        SQLiteDatabase db = openHelper.getWritableDatabase();
+        ContentValues vals = new ContentValues();
+
+        vals.put(ACCOUNT_DESCRIPTION_COLUMN, description);
+        vals.put(GNUCASH_ACCOUNT_COLUMN, gnuCash);
+
+        return db.insert(ACCOUNTS_TABLE, null, vals) != -1;
     }
 
     private static class ExpenseOpenHelper extends SQLiteOpenHelper {
