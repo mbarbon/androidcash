@@ -52,13 +52,6 @@ public class NewExpense extends Activity {
         transferDateView = (TextView) findViewById(R.id.transfer_date);
         transferAmount = (EditText) findViewById(R.id.transfer_amount);
 
-        // show date picker when clicking on the transfer date
-        transferDateView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DATE_DIALOG_ID);
-            }
-        });
-
         setTransferDate(new Date());
         transferAmount.setText("");
     }
@@ -92,5 +85,12 @@ public class NewExpense extends Activity {
 
     private void setTransferDate(int year, int month, int day) {
         setTransferDate(new Date(year - 1900, month, day));
+    }
+
+    // event handlers
+
+    public void onDateViewClicked(View v) {
+        // show date picker when clicking on the transfer date
+        showDialog(DATE_DIALOG_ID);
     }
 }
