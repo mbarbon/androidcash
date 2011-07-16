@@ -8,6 +8,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -104,6 +109,77 @@ public class ExpenseDatabase {
         vals.put(TRANSACTION_DESCRIPTION_COLUMN, description);
 
         return db.insert(EXPENSES_TABLE, null, vals) != -1;
+    }
+
+    public boolean exportQif(File qifFile) {
+        PrintWriter qif = null;
+
+        try {
+            qif = new PrintWriter(new FileOutputStream(qifFile));
+
+            return exportQif(qif);
+        }
+        catch (FileNotFoundException e) {
+            return false;
+        }
+        finally {
+            if (qif != null)
+                qif.close();
+        }
+    }
+
+    public boolean exportQif(PrintWriter qif) {
+        SQLiteDatabase db = getDatabase();
+        Cursor transactions = db.rawQuery(
+            "SELECT af.gc_account, at.gc_account," +
+            "        transaction_amount, transaction_description," +
+            "        strftime('%Y', transaction_date)," +
+            "        strftime('%m', transaction_date)," +
+            "        strftime('%d', transaction_date)" +
+            "    FROM " + EXPENSES_TABLE +
+            "    INNER JOIN accounts AS af" +
+            "        ON account_from = af.id" +
+            "    INNER JOIN accounts AS at" +
+            "        ON account_to = at.id" +
+            "    ORDER BY af.id, transaction_date", null);
+
+        while (transactions.moveToNext()) {
+            // from account
+            qif.println("!Account");
+
+            qif.print('N');
+            qif.println(transactions.getString(0));
+
+            qif.println("^");
+
+            // start transaction
+            qif.println("!Type:Cash");
+
+            // date
+            qif.print('D');
+            qif.print(transactions.getString(6));
+            qif.print('/');
+            qif.print(transactions.getString(5));
+            qif.print('/');
+            qif.println(transactions.getString(4));
+
+            // to account
+            qif.print('L');
+            qif.println(transactions.getString(1));
+
+            // amount
+            qif.print('T');
+            qif.println(transactions.getFloat(2));
+
+            // description
+            qif.print('M');
+            qif.println(transactions.getString(3));
+
+            // end of record
+            qif.println('^');
+        }
+
+        return true;
     }
 
     private static class ExpenseOpenHelper extends SQLiteOpenHelper {

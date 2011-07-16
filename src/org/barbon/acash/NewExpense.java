@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 
 import android.os.Bundle;
+import android.os.Environment;
 
 import android.text.format.DateFormat;
 
@@ -25,6 +26,8 @@ import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.io.File;
 
 import java.util.Date;
 
@@ -90,6 +93,10 @@ public class NewExpense extends Activity {
             return true;
         case R.id.expense_list:
             showExpenseList();
+
+            return true;
+        case R.id.export_transactions:
+            exportTransactions();
 
             return true;
         default:
@@ -158,6 +165,21 @@ public class NewExpense extends Activity {
         Intent intent = new Intent("org.barbon.acash.EXPENSE_LIST");
 
         startActivity(intent);
+    }
+
+    private void exportTransactions() {
+        File publicDir = Environment.getExternalStorageDirectory();
+        File appDir = new File(publicDir, "AndroidCash");
+        File qifFile = new File(appDir, "acash.qif"); // TODO config
+
+        // TODO check file overwrite, directory creation, external storage
+        appDir.mkdirs();
+
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+
+        if (!db.exportQif(qifFile))
+            // TODO do something
+            ;
     }
 
     // event handlers

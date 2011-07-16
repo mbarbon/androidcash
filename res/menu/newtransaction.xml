@@ -11,4 +11,9 @@
       android:icon="@drawable/ic_menu_list"
       android:title="@string/expense_list"
       />
+  <item
+      android:id="@+id/export_transactions"
+      android:icon="@drawable/ic_menu_save"
+      android:title="@string/export_transactions"
+      />
 </menu>
