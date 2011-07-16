@@ -25,14 +25,31 @@ public class ExpenseDatabase {
     public static final String TRANSACTION_DESCRIPTION_COLUMN =
         "transaction_description";
 
-    private ExpenseOpenHelper openHelper;
+    private static ExpenseDatabase theInstance;
 
-    public ExpenseDatabase(Context context) {
+    private ExpenseOpenHelper openHelper;
+    private SQLiteDatabase database;
+
+    private ExpenseDatabase(Context context) {
         openHelper = new ExpenseOpenHelper(context);
     }
 
+    public static ExpenseDatabase getInstance(Context context) {
+        if (theInstance == null)
+            theInstance = new ExpenseDatabase(context);
+
+        return theInstance;
+    }
+
+    private SQLiteDatabase getDatabase() {
+        if (database == null)
+            database = openHelper.getWritableDatabase();
+
+        return database;
+    }
+
     public Cursor getFromAccountList() {
-        SQLiteDatabase db = openHelper.getReadableDatabase();
+        SQLiteDatabase db = getDatabase();
 
         return db.rawQuery(
             "SELECT id AS _id, " + ACCOUNT_DESCRIPTION_COLUMN +
@@ -41,7 +58,7 @@ public class ExpenseDatabase {
     }
 
     public Cursor getToAccountList() {
-        SQLiteDatabase db = openHelper.getReadableDatabase();
+        SQLiteDatabase db = getDatabase();
 
         return db.rawQuery(
             "SELECT id AS _id, " + ACCOUNT_DESCRIPTION_COLUMN +
@@ -50,7 +67,7 @@ public class ExpenseDatabase {
     }
 
     public boolean insertAccount(String description, String gnuCash) {
-        SQLiteDatabase db = openHelper.getWritableDatabase();
+        SQLiteDatabase db = getDatabase();
         ContentValues vals = new ContentValues();
 
         vals.put(ACCOUNT_DESCRIPTION_COLUMN, description);

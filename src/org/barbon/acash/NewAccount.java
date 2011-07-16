@@ -22,7 +22,7 @@ public class NewAccount extends Activity {
     // event handlers
 
     public void onAddAccount(View v) {
-        ExpenseDatabase db = new ExpenseDatabase(this);
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
         if (!db.insertAccount(description.getText().toString(),
                               gnuCash.getText().toString()))
