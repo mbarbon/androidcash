@@ -97,6 +97,10 @@ public class NewExpense extends Activity {
             addNewAccount();
 
             return true;
+        case R.id.expense_list:
+            showExpenseList();
+
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -147,6 +151,12 @@ public class NewExpense extends Activity {
 
     private void addNewAccount() {
         Intent intent = new Intent("org.barbon.acash.NEW_ACCOUNT");
+
+        startActivity(intent);
+    }
+
+    private void showExpenseList() {
+        Intent intent = new Intent("org.barbon.acash.EXPENSE_LIST");
 
         startActivity(intent);
     }

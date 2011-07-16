@@ -18,5 +18,12 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity android:name=".ExpenseList"
+              android:label="@string/expense_list">
+      <intent-filter>
+        <action android:name="org.barbon.acash.EXPENSE_LIST" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
   </application>
 </manifest> 

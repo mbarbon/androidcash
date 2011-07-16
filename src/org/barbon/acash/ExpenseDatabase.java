@@ -66,6 +66,16 @@ public class ExpenseDatabase {
             "    ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN, null);
     }
 
+    public Cursor getExpenseList() {
+        SQLiteDatabase db = getDatabase();
+
+        return db.rawQuery(
+            "SELECT id AS _id, " + AMOUNT_COLUMN + ", " +
+                    TRANSACTION_DESCRIPTION_COLUMN +
+            "     FROM " + EXPENSES_TABLE +
+            "     ORDER BY " + DATE_COLUMN, null);
+    }
+
     public boolean insertAccount(String description, String gnuCash) {
         SQLiteDatabase db = getDatabase();
         ContentValues vals = new ContentValues();

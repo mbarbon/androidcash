@@ -6,4 +6,9 @@
       android:icon="@drawable/ic_menu_add"
       android:title="@string/new_account"
       />
+  <item
+      android:id="@+id/expense_list"
+      android:icon="@drawable/ic_menu_list"
+      android:title="@string/expense_list"
+      />
 </menu>
