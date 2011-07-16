@@ -105,7 +105,7 @@ public class NewExpense extends Activity {
                 new DatePickerDialog(this, dateSet,
                                      transferDate.getYear() + 1900,
                                      transferDate.getMonth(),
-                                     transferDate.getDay());
+                                     transferDate.getDate());
 
             dateDialog.setOnDismissListener(dateDismissed);
 
