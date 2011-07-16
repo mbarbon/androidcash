@@ -29,7 +29,7 @@ import android.widget.TextView;
 import java.util.Date;
 
 public class NewExpense extends Activity {
-    private EditText transferAmount;
+    private EditText transferAmount, expenseDescription;
 
     private TextView transferDateView;
     private Date transferDate;
@@ -66,6 +66,7 @@ public class NewExpense extends Activity {
 
         transferDateView = (TextView) findViewById(R.id.transfer_date);
         transferAmount = (EditText) findViewById(R.id.transfer_amount);
+        expenseDescription = (EditText) findViewById(R.id.expense_description);
 
         setTransferDate(new Date());
         transferAmount.setText("");
@@ -141,6 +142,12 @@ public class NewExpense extends Activity {
         spinner.setAdapter(adapter);
     }
 
+    private int getAccountId(int id) {
+        Spinner spinner = (Spinner) findViewById(id);
+
+        return (int) spinner.getSelectedItemId();
+    }
+
     private void addNewAccount() {
         Intent intent = new Intent("org.barbon.acash.NEW_ACCOUNT");
 
@@ -158,5 +165,17 @@ public class NewExpense extends Activity {
     public void onDateViewClicked(View v) {
         // show date picker when clicking on the transfer date
         showDialog(DATE_DIALOG_ID);
+    }
+
+    public void onAddExpense(View v) {
+        // add a new expense
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+
+        double amount = Double.parseDouble(transferAmount.getText().toString());
+        String description = expenseDescription.getText().toString();
+
+        db.insertExpense(getAccountId(R.id.from_account),
+                         getAccountId(R.id.to_account),
+                         amount, transferDate, description);
     }
 }

@@ -8,6 +8,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
+
 public class ExpenseDatabase {
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "expenses";
@@ -26,7 +30,8 @@ public class ExpenseDatabase {
         "transaction_description";
 
     private static ExpenseDatabase theInstance;
-
+    private static final SimpleDateFormat iso8601 =
+        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private ExpenseOpenHelper openHelper;
     private SQLiteDatabase database;
 
@@ -84,6 +89,21 @@ public class ExpenseDatabase {
         vals.put(GNUCASH_ACCOUNT_COLUMN, gnuCash);
 
         return db.insert(ACCOUNTS_TABLE, null, vals) != -1;
+    }
+
+    public boolean insertExpense(int from_account, int to_account,
+                                 double amount, Date date,
+                                 String description) {
+        SQLiteDatabase db = getDatabase();
+        ContentValues vals = new ContentValues();
+
+        vals.put(FROM_ACCOUNT_COLUMN, from_account);
+        vals.put(TO_ACCOUNT_COLUMN, to_account);
+        vals.put(DATE_COLUMN, iso8601.format(date));
+        vals.put(AMOUNT_COLUMN, amount);
+        vals.put(TRANSACTION_DESCRIPTION_COLUMN, description);
+
+        return db.insert(EXPENSES_TABLE, null, vals) != -1;
     }
 
     private static class ExpenseOpenHelper extends SQLiteOpenHelper {
