@@ -13,4 +13,5 @@
     <string name="gnucash_account_name">GNUCash account</string>
     <string name="add_account">Add account</string>
     <string name="expense_list">Expenses</string>
+    <string name="expense_description_prompt">Description</string>
 </resources>
