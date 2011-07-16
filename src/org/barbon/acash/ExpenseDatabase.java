@@ -182,6 +182,12 @@ public class ExpenseDatabase {
         return true;
     }
 
+    public boolean deleteTransactions() {
+        SQLiteDatabase db = getDatabase();
+
+        return db.delete(EXPENSES_TABLE, null, null) != -1;
+    }
+
     private static class ExpenseOpenHelper extends SQLiteOpenHelper {
         private static final String ACCOUNTS_TABLE_CREATE =
             "CREATE TABLE " + ACCOUNTS_TABLE + " ( " +

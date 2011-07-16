@@ -16,4 +16,9 @@
       android:icon="@drawable/ic_menu_save"
       android:title="@string/export_transactions"
       />
+  <item
+      android:id="@+id/delete_transactions"
+      android:icon="@drawable/ic_menu_delete"
+      android:title="@string/delete_transactions"
+      />
 </menu>

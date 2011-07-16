@@ -99,6 +99,10 @@ public class NewExpense extends Activity {
             exportTransactions();
 
             return true;
+        case R.id.delete_transactions:
+            deleteTransactions();
+
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -178,6 +182,14 @@ public class NewExpense extends Activity {
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
         if (!db.exportQif(qifFile))
+            // TODO do something
+            ;
+    }
+
+    private void deleteTransactions() {
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+
+        if (!db.deleteTransactions())
             // TODO do something
             ;
     }
