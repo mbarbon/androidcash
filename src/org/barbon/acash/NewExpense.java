@@ -95,6 +95,10 @@ public class NewExpense extends Activity {
             showExpenseList();
 
             return true;
+        case R.id.account_list:
+            showAccountList();
+
+            return true;
         case R.id.export_expenses:
             exportExpenses();
 
@@ -167,6 +171,12 @@ public class NewExpense extends Activity {
 
     private void showExpenseList() {
         Intent intent = new Intent("org.barbon.acash.EXPENSE_LIST");
+
+        startActivity(intent);
+    }
+
+    private void showAccountList() {
+        Intent intent = new Intent("org.barbon.acash.ACCOUNT_LIST");
 
         startActivity(intent);
     }

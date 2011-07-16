@@ -13,6 +13,7 @@
     <string name="gnucash_account_name">GNUCash account</string>
     <string name="add_account">Add account</string>
     <string name="expense_list">Expenses</string>
+    <string name="account_list">Accounts</string>
     <string name="expense_description_prompt">Description</string>
     <string name="export_expenses">Export expenses</string>
     <string name="delete_expenses">Delete expenses</string>

@@ -12,6 +12,11 @@
       android:title="@string/expense_list"
       />
   <item
+      android:id="@+id/account_list"
+      android:icon="@drawable/ic_menu_list"
+      android:title="@string/account_list"
+      />
+  <item
       android:id="@+id/export_expenses"
       android:icon="@drawable/ic_menu_save"
       android:title="@string/export_expenses"
