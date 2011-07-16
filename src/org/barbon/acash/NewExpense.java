@@ -32,19 +32,19 @@ import java.io.File;
 import java.util.Date;
 
 public class NewExpense extends Activity {
-    private EditText transferAmount, expenseDescription;
+    private EditText expenseAmount, expenseDescription;
 
-    private TextView transferDateView;
-    private Date transferDate;
+    private TextView expenseDateView;
+    private Date expenseDate;
 
     private static final int DATE_DIALOG_ID = 0;
 
-    // set the transaction date
+    // set the expense date
     private DatePickerDialog.OnDateSetListener dateSet =
         new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year,
                                   int month, int day) {
-                setTransferDate(year, month, day);
+                setExpenseDate(year, month, day);
             }
         };
 
@@ -67,19 +67,19 @@ public class NewExpense extends Activity {
         setAccountData(R.id.from_account, db.getFromAccountList());
         setAccountData(R.id.to_account, db.getToAccountList());
 
-        transferDateView = (TextView) findViewById(R.id.transfer_date);
-        transferAmount = (EditText) findViewById(R.id.transfer_amount);
+        expenseDateView = (TextView) findViewById(R.id.expense_date);
+        expenseAmount = (EditText) findViewById(R.id.expense_amount);
         expenseDescription = (EditText) findViewById(R.id.expense_description);
 
-        setTransferDate(new Date());
-        transferAmount.setText("");
+        setExpenseDate(new Date());
+        expenseAmount.setText("");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = new MenuInflater(this);
 
-        inflater.inflate(R.menu.newtransaction, menu);
+        inflater.inflate(R.menu.newexpense, menu);
 
         return true;
     }
@@ -95,12 +95,12 @@ public class NewExpense extends Activity {
             showExpenseList();
 
             return true;
-        case R.id.export_transactions:
-            exportTransactions();
+        case R.id.export_expenses:
+            exportExpenses();
 
             return true;
-        case R.id.delete_transactions:
-            deleteTransactions();
+        case R.id.delete_expenses:
+            deleteExpenses();
 
             return true;
         default:
@@ -114,9 +114,9 @@ public class NewExpense extends Activity {
         case DATE_DIALOG_ID:
             DatePickerDialog dateDialog =
                 new DatePickerDialog(this, dateSet,
-                                     transferDate.getYear() + 1900,
-                                     transferDate.getMonth(),
-                                     transferDate.getDate());
+                                     expenseDate.getYear() + 1900,
+                                     expenseDate.getMonth(),
+                                     expenseDate.getDate());
 
             dateDialog.setOnDismissListener(dateDismissed);
 
@@ -126,17 +126,17 @@ public class NewExpense extends Activity {
         return null;
     }
 
-    private void setTransferDate(Date date) {
-        transferDate = date;
+    private void setExpenseDate(Date date) {
+        expenseDate = date;
 
         java.text.DateFormat dateFormat =
             DateFormat.getDateFormat(getApplicationContext());
 
-        transferDateView.setText(dateFormat.format(transferDate));
+        expenseDateView.setText(dateFormat.format(expenseDate));
     }
 
-    private void setTransferDate(int year, int month, int day) {
-        setTransferDate(new Date(year - 1900, month, day));
+    private void setExpenseDate(int year, int month, int day) {
+        setExpenseDate(new Date(year - 1900, month, day));
     }
 
     private void setAccountData(int id, Cursor data) {
@@ -171,7 +171,7 @@ public class NewExpense extends Activity {
         startActivity(intent);
     }
 
-    private void exportTransactions() {
+    private void exportExpenses() {
         File publicDir = Environment.getExternalStorageDirectory();
         File appDir = new File(publicDir, "AndroidCash");
         File qifFile = new File(appDir, "acash.qif"); // TODO config
@@ -186,10 +186,10 @@ public class NewExpense extends Activity {
             ;
     }
 
-    private void deleteTransactions() {
+    private void deleteExpenses() {
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
-        if (!db.deleteTransactions())
+        if (!db.deleteExpenses())
             // TODO do something
             ;
     }
@@ -197,7 +197,7 @@ public class NewExpense extends Activity {
     // event handlers
 
     public void onDateViewClicked(View v) {
-        // show date picker when clicking on the transfer date
+        // show date picker when clicking on the expense date
         showDialog(DATE_DIALOG_ID);
     }
 
@@ -205,11 +205,11 @@ public class NewExpense extends Activity {
         // add a new expense
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
-        double amount = Double.parseDouble(transferAmount.getText().toString());
+        double amount = Double.parseDouble(expenseAmount.getText().toString());
         String description = expenseDescription.getText().toString();
 
         db.insertExpense(getAccountId(R.id.from_account),
                          getAccountId(R.id.to_account),
-                         amount, transferDate, description);
+                         amount, expenseDate, description);
     }
 }

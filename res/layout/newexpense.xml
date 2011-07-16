@@ -31,10 +31,10 @@
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/transfer_amount_prompt"
+      android:text="@string/expense_amount_prompt"
       />
   <EditText
-      android:id="@+id/transfer_amount"
+      android:id="@+id/expense_amount"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:numeric="decimal"
@@ -44,10 +44,10 @@
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/transfer_date_prompt"
+      android:text="@string/expense_date_prompt"
       />
   <EditText
-      android:id="@+id/transfer_date"
+      android:id="@+id/expense_date"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:inputType="none"
@@ -77,12 +77,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/from_transaction_template"
+        android:text="@string/from_expense_template"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_transaction"
+        android:text="@string/add_expense"
         android:onClick="onAddExpense"
         />
   </LinearLayout>

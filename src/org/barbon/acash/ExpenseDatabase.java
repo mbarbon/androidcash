@@ -31,7 +31,7 @@ public class ExpenseDatabase {
     public static final String TO_ACCOUNT_COLUMN = "account_to";
     public static final String DATE_COLUMN = "transaction_date";
     public static final String AMOUNT_COLUMN = "transaction_amount";
-    public static final String TRANSACTION_DESCRIPTION_COLUMN =
+    public static final String EXPENSE_DESCRIPTION_COLUMN =
         "transaction_description";
 
     private static ExpenseDatabase theInstance;
@@ -81,7 +81,7 @@ public class ExpenseDatabase {
 
         return db.rawQuery(
             "SELECT id AS _id, " + AMOUNT_COLUMN + ", " +
-                    TRANSACTION_DESCRIPTION_COLUMN +
+                    EXPENSE_DESCRIPTION_COLUMN +
             "     FROM " + EXPENSES_TABLE +
             "     ORDER BY " + DATE_COLUMN, null);
     }
@@ -106,7 +106,7 @@ public class ExpenseDatabase {
         vals.put(TO_ACCOUNT_COLUMN, to_account);
         vals.put(DATE_COLUMN, iso8601.format(date));
         vals.put(AMOUNT_COLUMN, amount);
-        vals.put(TRANSACTION_DESCRIPTION_COLUMN, description);
+        vals.put(EXPENSE_DESCRIPTION_COLUMN, description);
 
         return db.insert(EXPENSES_TABLE, null, vals) != -1;
     }
@@ -130,7 +130,7 @@ public class ExpenseDatabase {
 
     public boolean exportQif(PrintWriter qif) {
         SQLiteDatabase db = getDatabase();
-        Cursor transactions = db.rawQuery(
+        Cursor expenses = db.rawQuery(
             "SELECT af.gc_account, at.gc_account," +
             "        transaction_amount, transaction_description," +
             "        strftime('%Y', transaction_date)," +
@@ -143,37 +143,37 @@ public class ExpenseDatabase {
             "        ON account_to = at.id" +
             "    ORDER BY af.id, transaction_date", null);
 
-        while (transactions.moveToNext()) {
+        while (expenses.moveToNext()) {
             // from account
             qif.println("!Account");
 
             qif.print('N');
-            qif.println(transactions.getString(0));
+            qif.println(expenses.getString(0));
 
             qif.println("^");
 
-            // start transaction
+            // start expense
             qif.println("!Type:Cash");
 
             // date
             qif.print('D');
-            qif.print(transactions.getString(6));
+            qif.print(expenses.getString(6));
             qif.print('/');
-            qif.print(transactions.getString(5));
+            qif.print(expenses.getString(5));
             qif.print('/');
-            qif.println(transactions.getString(4));
+            qif.println(expenses.getString(4));
 
             // to account
             qif.print('L');
-            qif.println(transactions.getString(1));
+            qif.println(expenses.getString(1));
 
             // amount
             qif.print('T');
-            qif.println(transactions.getFloat(2));
+            qif.println(expenses.getFloat(2));
 
             // description
             qif.print('M');
-            qif.println(transactions.getString(3));
+            qif.println(expenses.getString(3));
 
             // end of record
             qif.println('^');
@@ -182,7 +182,7 @@ public class ExpenseDatabase {
         return true;
     }
 
-    public boolean deleteTransactions() {
+    public boolean deleteExpenses() {
         SQLiteDatabase db = getDatabase();
 
         return db.delete(EXPENSES_TABLE, null, null) != -1;
@@ -201,7 +201,7 @@ public class ExpenseDatabase {
             "id INTEGER PRIMARY KEY," +
             FROM_ACCOUNT_COLUMN + " INTEGER, " +
             TO_ACCOUNT_COLUMN + " INTEGER, " +
-            TRANSACTION_DESCRIPTION_COLUMN + " TEXT, " +
+            EXPENSE_DESCRIPTION_COLUMN + " TEXT, " +
             DATE_COLUMN + " DATETIME, " +
             AMOUNT_COLUMN + " FLOAT," +
             "FOREIGN KEY(" + FROM_ACCOUNT_COLUMN + ") REFERENCES " +

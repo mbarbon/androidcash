@@ -26,7 +26,7 @@ public class ExpenseList extends ListActivity {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
             this, R.layout.expenseitem, data,
             new String[] { ExpenseDatabase.AMOUNT_COLUMN,
-                           ExpenseDatabase.TRANSACTION_DESCRIPTION_COLUMN },
+                           ExpenseDatabase.EXPENSE_DESCRIPTION_COLUMN },
             new int[] { R.id.expense_item_amount,
                         R.id.expense_item_description });
 

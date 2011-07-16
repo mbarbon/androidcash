@@ -4,16 +4,16 @@
     <string name="new_expense">New expense</string>
     <string name="account_from_prompt">From account</string>
     <string name="account_to_prompt">To account</string>
-    <string name="transfer_amount_prompt">Amount</string>
-    <string name="transfer_date_prompt">Date</string>
-    <string name="add_transaction">Add transaction</string>
-    <string name="from_transaction_template">Use template</string>
+    <string name="expense_amount_prompt">Amount</string>
+    <string name="expense_date_prompt">Date</string>
+    <string name="add_expense">Add expense</string>
+    <string name="from_expense_template">Use template</string>
     <string name="new_account">New account</string>
     <string name="account_description">Description</string>
     <string name="gnucash_account_name">GNUCash account</string>
     <string name="add_account">Add account</string>
     <string name="expense_list">Expenses</string>
     <string name="expense_description_prompt">Description</string>
-    <string name="export_transactions">Export transactions</string>
-    <string name="delete_transactions">Delete transactions</string>
+    <string name="export_expenses">Export expenses</string>
+    <string name="delete_expenses">Delete expenses</string>
 </resources>
