@@ -72,16 +72,6 @@ public class NewExpense extends Activity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
-
-        setAccountData(R.id.from_account, db.getFromAccountList());
-        setAccountData(R.id.to_account, db.getToAccountList());
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = new MenuInflater(this);
 
@@ -145,6 +135,8 @@ public class NewExpense extends Activity {
             new int[] { android.R.id.text1 });
         adapter.setDropDownViewResource(
             android.R.layout.simple_spinner_dropdown_item);
+
+        startManagingCursor(data); // TODO deprecated
 
         spinner.setAdapter(adapter);
     }
