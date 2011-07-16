@@ -17,4 +17,5 @@
     <string name="expense_description_prompt">Description</string>
     <string name="export_expenses">Export expenses</string>
     <string name="delete_expenses">Delete expenses</string>
+    <string name="account_detail">Account</string>
 </resources>

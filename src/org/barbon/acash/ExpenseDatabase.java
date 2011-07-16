@@ -120,6 +120,28 @@ public class ExpenseDatabase {
         return db.insert(EXPENSES_TABLE, null, vals) != -1;
     }
 
+    public ContentValues getAccount(long id) {
+        SQLiteDatabase db = getDatabase();
+        Cursor cursor = db.rawQuery(
+            "SELECT id AS _id, " + ACCOUNT_DESCRIPTION_COLUMN + ", " +
+                    GNUCASH_ACCOUNT_COLUMN +
+            "    FROM " + ACCOUNTS_TABLE +
+            "    WHERE id = ?", new String[] { Long.toString(id) });
+
+        ContentValues vals = null;
+
+        if (cursor.moveToNext()) {
+            vals = new ContentValues();
+
+            vals.put(ACCOUNT_DESCRIPTION_COLUMN, cursor.getString(1));
+            vals.put(GNUCASH_ACCOUNT_COLUMN, cursor.getString(2));
+        }
+
+        cursor.close();
+
+        return vals;
+    }
+
     public boolean exportQif(File qifFile) {
         PrintWriter qif = null;
 
