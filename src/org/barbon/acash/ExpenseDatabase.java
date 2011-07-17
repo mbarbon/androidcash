@@ -102,7 +102,18 @@ public class ExpenseDatabase {
         vals.put(ACCOUNT_DESCRIPTION_COLUMN, description);
         vals.put(GNUCASH_ACCOUNT_COLUMN, gnuCash);
 
-        return db.insert(ACCOUNTS_TABLE, null, vals) != -1;
+        return db.insert(ACCOUNTS_TABLE, null, vals) == 1;
+    }
+
+    public boolean updateAccount(long id, String description, String gnuCash) {
+        SQLiteDatabase db = getDatabase();
+        ContentValues vals = new ContentValues();
+
+        vals.put(ACCOUNT_DESCRIPTION_COLUMN, description);
+        vals.put(GNUCASH_ACCOUNT_COLUMN, gnuCash);
+
+        return db.update(ACCOUNTS_TABLE, vals, "id = ?",
+                         new String[] { Long.toString(id) }) == 1;
     }
 
     public boolean insertExpense(int from_account, int to_account,

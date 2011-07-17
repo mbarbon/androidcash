@@ -36,4 +36,16 @@ public class AccountDetail extends Activity {
         gnuCash.setText(
             (String) vals.get(ExpenseDatabase.GNUCASH_ACCOUNT_COLUMN));
     }
+
+    // event handlers
+
+    public void onUpdateAccount(View view) {
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+
+        if (!db.updateAccount(accountId,
+                              description.getText().toString(),
+                              gnuCash.getText().toString()))
+            // TODO do something
+            ;
+    }
 }
