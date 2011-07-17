@@ -30,6 +30,7 @@ public class ExpenseList extends ListActivity {
             new int[] { R.id.expense_item_amount,
                         R.id.expense_item_description });
 
+        startManagingCursor(data); // TODO deprecated
         setListAdapter(adapter);
     }
 }

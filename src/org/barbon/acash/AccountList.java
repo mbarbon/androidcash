@@ -42,6 +42,7 @@ public class AccountList extends ListActivity {
             new String[] { ExpenseDatabase.ACCOUNT_DESCRIPTION_COLUMN },
             new int[] { R.id.account_item_description });
 
+        startManagingCursor(data); // TODO deprecated
         setListAdapter(adapter);
     }
 
