@@ -19,4 +19,5 @@
     <string name="delete_expenses">Delete expenses</string>
     <string name="update_account">Update account</string>
     <string name="account_detail">Account</string>
+    <string name="expense_detail">Expense</string>
 </resources>

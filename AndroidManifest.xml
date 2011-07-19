@@ -32,6 +32,13 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity android:name=".ExpenseDetail"
+              android:label="@string/expense_detail">
+      <intent-filter>
+        <action android:name="org.barbon.acash.EXPENSE_DETAIL" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
     <activity android:name=".AccountDetail"
               android:label="@string/account_detail">
       <intent-filter>
