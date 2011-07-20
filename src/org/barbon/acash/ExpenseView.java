@@ -3,6 +3,7 @@ package org.barbon.acash;
 import android.app.Activity;
 
 import android.content.Context;
+import android.content.ContentValues;
 
 import android.database.Cursor;
 
@@ -59,6 +60,19 @@ public class ExpenseView extends LinearLayout {
 
         setExpenseDate(new Date());
         expenseAmount.setText("");
+    }
+
+    public void setExpenseId(long id) {
+        ExpenseDatabase db = ExpenseDatabase.getInstance(context);
+        ContentValues vals = db.getExpense(id);
+
+        setExpenseDate(vals.getAsInteger(ExpenseDatabase.DATE_YEAR_COLUMN),
+                       vals.getAsInteger(ExpenseDatabase.DATE_MONTH_COLUMN),
+                       vals.getAsInteger(ExpenseDatabase.DATE_DAY_COLUMN));
+        expenseAmount.setText(Double.toString(vals.getAsDouble(ExpenseDatabase.AMOUNT_COLUMN)));
+        expenseDescription.setText(vals.getAsString(ExpenseDatabase.EXPENSE_DESCRIPTION_COLUMN));
+        setAccountId(R.id.from_account, vals.getAsInteger(ExpenseDatabase.FROM_ACCOUNT_COLUMN));
+        setAccountId(R.id.to_account, vals.getAsInteger(ExpenseDatabase.TO_ACCOUNT_COLUMN));
     }
 
     public void setDateClickListener(View.OnClickListener listener) {
@@ -134,5 +148,17 @@ public class ExpenseView extends LinearLayout {
         Spinner spinner = (Spinner) findViewById(id);
 
         return (int) spinner.getSelectedItemId();
+    }
+
+    private void setAccountId(int id, long rowId) {
+        Spinner spinner = (Spinner) findViewById(id);
+        CursorAdapter adapter = (CursorAdapter) spinner.getAdapter();
+
+        for (int i = 0; i < adapter.getCount(); ++i)
+            if (adapter.getItemId(i) == rowId)
+            {
+                spinner.setSelection(i);
+                break;
+            }
     }
 }
