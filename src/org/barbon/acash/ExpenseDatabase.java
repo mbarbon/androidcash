@@ -30,6 +30,9 @@ public class ExpenseDatabase {
     public static final String FROM_ACCOUNT_COLUMN = "account_from";
     public static final String TO_ACCOUNT_COLUMN = "account_to";
     public static final String DATE_COLUMN = "transaction_date";
+    public static final String DATE_YEAR_COLUMN = "transaction_year";
+    public static final String DATE_MONTH_COLUMN = "transaction_month";
+    public static final String DATE_DAY_COLUMN = "transaction_day";
     public static final String AMOUNT_COLUMN = "transaction_amount";
     public static final String EXPENSE_DESCRIPTION_COLUMN =
         "transaction_description";
@@ -131,6 +134,23 @@ public class ExpenseDatabase {
         return db.insert(EXPENSES_TABLE, null, vals) != -1;
     }
 
+    public boolean updateExpense(long id,
+                                 int from_account, int to_account,
+                                 double amount, Date date,
+                                 String description) {
+        SQLiteDatabase db = getDatabase();
+        ContentValues vals = new ContentValues();
+
+        vals.put(FROM_ACCOUNT_COLUMN, from_account);
+        vals.put(TO_ACCOUNT_COLUMN, to_account);
+        vals.put(DATE_COLUMN, iso8601.format(date));
+        vals.put(AMOUNT_COLUMN, amount);
+        vals.put(EXPENSE_DESCRIPTION_COLUMN, description);
+
+        return db.update(EXPENSES_TABLE, vals, "id = ?",
+                         new String[] { Long.toString(id) }) == 1;
+    }
+
     public ContentValues getAccount(long id) {
         SQLiteDatabase db = getDatabase();
         Cursor cursor = db.rawQuery(
@@ -146,6 +166,38 @@ public class ExpenseDatabase {
 
             vals.put(ACCOUNT_DESCRIPTION_COLUMN, cursor.getString(1));
             vals.put(GNUCASH_ACCOUNT_COLUMN, cursor.getString(2));
+        }
+
+        cursor.close();
+
+        return vals;
+    }
+
+    public ContentValues getExpense(long id) {
+        SQLiteDatabase db = getDatabase();
+        Cursor cursor = db.rawQuery(
+            "SELECT id AS _id, " + AMOUNT_COLUMN + ", " +
+                    EXPENSE_DESCRIPTION_COLUMN + ", " +
+                    FROM_ACCOUNT_COLUMN + ", " +
+                    TO_ACCOUNT_COLUMN + ", " +
+            "       strftime('%Y', transaction_date)," +
+            "       strftime('%m', transaction_date)," +
+            "       strftime('%d', transaction_date)" +
+            "     FROM " + EXPENSES_TABLE +
+            "    WHERE id = ?", new String[] { Long.toString(id) });
+
+        ContentValues vals = null;
+
+        if (cursor.moveToNext()) {
+            vals = new ContentValues();
+
+            vals.put(AMOUNT_COLUMN, cursor.getDouble(1));
+            vals.put(EXPENSE_DESCRIPTION_COLUMN, cursor.getString(2));
+            vals.put(FROM_ACCOUNT_COLUMN, cursor.getInt(3));
+            vals.put(TO_ACCOUNT_COLUMN, cursor.getInt(4));
+            vals.put(DATE_YEAR_COLUMN, cursor.getInt(5));
+            vals.put(DATE_MONTH_COLUMN, cursor.getInt(6));
+            vals.put(DATE_DAY_COLUMN, cursor.getInt(7));
         }
 
         cursor.close();
