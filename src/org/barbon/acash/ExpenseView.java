@@ -30,7 +30,7 @@ public class ExpenseView extends LinearLayout {
 
     private TextView expenseDateView;
     private Date expenseDate;
-    private Activity context;
+    private Context context;
 
     private DatePickerDialog.OnDateSetListener dateSet =
         new DatePickerDialog.OnDateSetListener() {
@@ -51,7 +51,7 @@ public class ExpenseView extends LinearLayout {
     public ExpenseView(Context cxt, AttributeSet attrs) {
         super(cxt, attrs);
 
-        context = (Activity) cxt; // TODO avoid cast or check if it is safe
+        context = cxt;
 
         setOrientation(VERTICAL);
         inflate(context, R.layout.expenseview, this);
@@ -144,7 +144,7 @@ public class ExpenseView extends LinearLayout {
         adapter.setDropDownViewResource(
             android.R.layout.simple_spinner_dropdown_item);
 
-        context.startManagingCursor(data); // TODO deprecated
+        ((Activity) context).startManagingCursor(data); // TODO deprecated
 
         spinner.setAdapter(adapter);
     }
