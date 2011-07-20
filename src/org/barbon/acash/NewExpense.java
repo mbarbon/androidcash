@@ -24,33 +24,6 @@ import java.util.Date;
 public class NewExpense extends Activity {
     private ExpenseView expenseView;
 
-    private static final int DATE_DIALOG_ID = 0;
-
-    // set the expense date
-    private DatePickerDialog.OnDateSetListener dateSet =
-        new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year,
-                                  int month, int day) {
-                expenseView.setExpenseDate(year, month, day);
-            }
-        };
-
-    // reset the dialog date when the user closes it
-    private DialogInterface.OnDismissListener dateDismissed =
-        new DialogInterface.OnDismissListener() {
-            public void onDismiss(DialogInterface dialog) {
-                removeDialog(DATE_DIALOG_ID);
-            }
-        };
-
-    // popup date dialog
-    private View.OnClickListener dateClicked =
-        new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DATE_DIALOG_ID);
-            }
-        };
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +31,6 @@ public class NewExpense extends Activity {
         setContentView(R.layout.newexpense);
 
         expenseView = (ExpenseView) findViewById(R.id.expense_view);
-        expenseView.setDateClickListener(dateClicked);
     }
 
     @Override
@@ -96,24 +68,6 @@ public class NewExpense extends Activity {
         default:
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-        case DATE_DIALOG_ID:
-            DatePickerDialog dateDialog =
-                new DatePickerDialog(this, dateSet,
-                                     expenseView.getExpenseYear(),
-                                     expenseView.getExpenseMonth(),
-                                     expenseView.getExpenseDay());
-
-            dateDialog.setOnDismissListener(dateDismissed);
-
-            return dateDialog;
-        }
-
-        return null;
     }
 
     private void addNewAccount() {

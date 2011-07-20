@@ -1,6 +1,7 @@
 package org.barbon.acash;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 
 import android.content.Context;
 import android.content.ContentValues;
@@ -15,6 +16,7 @@ import android.view.View;
 
 import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SimpleCursorAdapter;
@@ -30,12 +32,19 @@ public class ExpenseView extends LinearLayout {
     private Date expenseDate;
     private Activity context;
 
-    private View.OnClickListener dateClickListener;
+    private DatePickerDialog.OnDateSetListener dateSet =
+        new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year,
+                                  int month, int day) {
+                setExpenseDate(year, month, day);
+            }
+        };
+
+    // popup date dialog
     private View.OnClickListener dateClicked =
         new View.OnClickListener() {
             public void onClick(View v) {
-                if (dateClickListener != null)
-                    dateClickListener.onClick(ExpenseView.this);
+                showDateDialog();
             }
         };
 
@@ -73,10 +82,6 @@ public class ExpenseView extends LinearLayout {
         expenseDescription.setText(vals.getAsString(ExpenseDatabase.EXPENSE_DESCRIPTION_COLUMN));
         setAccountId(R.id.from_account, vals.getAsInteger(ExpenseDatabase.FROM_ACCOUNT_COLUMN));
         setAccountId(R.id.to_account, vals.getAsInteger(ExpenseDatabase.TO_ACCOUNT_COLUMN));
-    }
-
-    public void setDateClickListener(View.OnClickListener listener) {
-        dateClickListener = listener;
     }
 
     // date accessors
@@ -160,5 +165,15 @@ public class ExpenseView extends LinearLayout {
                 spinner.setSelection(i);
                 break;
             }
+    }
+
+    private void showDateDialog() {
+        DatePickerDialog dateDialog =
+            new DatePickerDialog(context, dateSet,
+                                 getExpenseYear(),
+                                 getExpenseMonth(),
+                                 getExpenseDay());
+
+        dateDialog.show();
     }
 }
