@@ -13,8 +13,30 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+
+import java.text.DecimalFormat;
 
 public class ExpenseList extends ListActivity {
+    // better format for the amount
+    private static class SimpleBinder
+            implements SimpleCursorAdapter.ViewBinder {
+        DecimalFormat format = new DecimalFormat("#.######");
+
+        public boolean setViewValue(View view, Cursor cursor, int column) {
+            if (view.getId() != R.id.expense_item_amount)
+                return false;
+
+            TextView textView = (TextView) view;
+
+            textView.setText(format.format(cursor.getDouble(column)));
+
+            return true;
+        }
+    }
+
+    private static final SimpleBinder VIEW_BINDER = new SimpleBinder();
+
     private AdapterView.OnItemClickListener clickListener =
         new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -44,6 +66,7 @@ public class ExpenseList extends ListActivity {
             new int[] { R.id.expense_item_amount,
                         R.id.expense_item_description });
 
+        adapter.setViewBinder(VIEW_BINDER);
         startManagingCursor(data); // TODO deprecated
         setListAdapter(adapter);
     }
