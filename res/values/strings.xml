@@ -20,4 +20,5 @@
     <string name="update_account">Update account</string>
     <string name="account_detail">Account</string>
     <string name="expense_detail">Expense</string>
+    <string name="update_expense">Update expense</string>
 </resources>

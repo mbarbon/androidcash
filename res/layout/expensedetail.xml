@@ -4,4 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+  <org.barbon.acash.ExpenseView
+      android:id="@+id/expense_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:gravity="bottom|right">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/update_expense"
+        android:onClick="onUpdateExpense"
+        />
+  </LinearLayout>
 </LinearLayout>
