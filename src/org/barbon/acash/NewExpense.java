@@ -117,10 +117,15 @@ public class NewExpense extends Activity {
         // add a new expense
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
-        db.insertExpense(expenseView.getExpenseAccountFrom(),
-                         expenseView.getExpenseAccountTo(),
-                         expenseView.getExpenseAmount(),
-                         expenseView.getExpenseDate(),
-                         expenseView.getExpenseDescription());
+        if (!db.insertExpense(expenseView.getExpenseAccountFrom(),
+                              expenseView.getExpenseAccountTo(),
+                              expenseView.getExpenseAmount(),
+                              expenseView.getExpenseDate(),
+                              expenseView.getExpenseDescription()))
+            // TODO so something
+            ;
+
+        expenseView.clearExpenseAmount();
+        expenseView.clearExpenseDescription();
     }
 }

@@ -121,8 +121,16 @@ public class ExpenseView extends LinearLayout {
         return Double.parseDouble(expenseAmount.getText().toString());
     }
 
+    public void clearExpenseAmount() {
+        expenseAmount.setText("");
+    }
+
     public String getExpenseDescription() {
         return expenseDescription.getText().toString();
+    }
+
+    public void clearExpenseDescription() {
+        expenseDescription.setText("");
     }
 
     public int getExpenseAccountFrom() {

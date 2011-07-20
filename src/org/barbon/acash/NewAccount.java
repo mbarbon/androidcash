@@ -28,5 +28,8 @@ public class NewAccount extends Activity {
                               gnuCash.getText().toString()))
             // TODO do something
             ;
+
+        description.setText("");
+        gnuCash.setText("");
     }
 }
