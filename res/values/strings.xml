@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Android Cash</string>
-    <string name="new_expense">New expense</string>
     <string name="account_from_prompt">From account</string>
     <string name="account_to_prompt">To account</string>
     <string name="expense_amount_prompt">Amount</string>
@@ -18,7 +17,5 @@
     <string name="export_expenses">Export expenses</string>
     <string name="delete_expenses">Delete expenses</string>
     <string name="update_account">Update account</string>
-    <string name="account_detail">Account</string>
-    <string name="expense_detail">Expense</string>
     <string name="update_expense">Update expense</string>
 </resources>

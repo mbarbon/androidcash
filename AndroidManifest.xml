@@ -4,43 +4,37 @@
       android:versionCode="1"
       android:versionName="1.0">
   <application android:label="@string/app_name" android:icon="@drawable/icon">
-    <activity android:name=".NewExpense"
-              android:label="@string/new_expense">
+    <activity android:name=".NewExpense">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".NewAccount"
-              android:label="@string/new_account">
+    <activity android:name=".NewAccount">
       <intent-filter>
         <action android:name="org.barbon.acash.NEW_ACCOUNT" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <activity android:name=".ExpenseList"
-              android:label="@string/expense_list">
+    <activity android:name=".ExpenseList">
       <intent-filter>
         <action android:name="org.barbon.acash.EXPENSE_LIST" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <activity android:name=".AccountList"
-              android:label="@string/account_list">
+    <activity android:name=".AccountList">
       <intent-filter>
         <action android:name="org.barbon.acash.ACCOUNT_LIST" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <activity android:name=".ExpenseDetail"
-              android:label="@string/expense_detail">
+    <activity android:name=".ExpenseDetail">
       <intent-filter>
         <action android:name="org.barbon.acash.EXPENSE_DETAIL" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <activity android:name=".AccountDetail"
-              android:label="@string/account_detail">
+    <activity android:name=".AccountDetail">
       <intent-filter>
         <action android:name="org.barbon.acash.ACCOUNT_DETAIL" />
         <category android:name="android.intent.category.DEFAULT" />
