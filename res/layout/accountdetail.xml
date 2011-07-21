@@ -4,28 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <TextView
+  <org.barbon.acash.AccountView
+      android:id="@+id/account_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/account_description"
-      />
-  <EditText
-      android:id="@+id/account_description"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:inputType="text"
-      />
-
-  <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/gnucash_account_name"
-      />
-  <EditText
-      android:id="@+id/gnucash_account"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:inputType="text"
       />
 
   <LinearLayout

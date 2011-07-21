@@ -4,18 +4,14 @@ import android.app.Activity;
 
 import android.content.ContentValues;
 
-import android.database.Cursor;
-
 import android.os.Bundle;
 
 import android.view.View;
 
-import android.widget.EditText;
-
 public class AccountDetail extends Activity {
     public static final String ACCOUNT_ID = "accountId";
 
-    private EditText description, gnuCash;
+    private AccountView accountView;
     private long accountId;
 
     @Override
@@ -23,17 +19,16 @@ public class AccountDetail extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.accountdetail);
 
-        description = (EditText) findViewById(R.id.account_description);
-        gnuCash = (EditText) findViewById(R.id.gnucash_account);
+        accountView = (AccountView) findViewById(R.id.account_view);
 
         accountId = getIntent().getLongExtra(ACCOUNT_ID, -1);
 
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
         ContentValues vals = db.getAccount(accountId);
 
-        description.setText(
+        accountView.setAccountDescription(
             (String) vals.get(ExpenseDatabase.ACCOUNT_DESCRIPTION_COLUMN));
-        gnuCash.setText(
+        accountView.setGnuCashAccount(
             (String) vals.get(ExpenseDatabase.GNUCASH_ACCOUNT_COLUMN));
     }
 
@@ -43,8 +38,8 @@ public class AccountDetail extends Activity {
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
         if (!db.updateAccount(accountId,
-                              description.getText().toString(),
-                              gnuCash.getText().toString()))
+                              accountView.getAccountDescription(),
+                              accountView.getGnuCashAccount()))
             // TODO do something
             ;
     }

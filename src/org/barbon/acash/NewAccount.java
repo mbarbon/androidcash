@@ -6,17 +6,14 @@ import android.os.Bundle;
 
 import android.view.View;
 
-import android.widget.EditText;
-
 public class NewAccount extends Activity {
-    private EditText description, gnuCash;
+    private AccountView accountView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newaccount);
 
-        description = (EditText) findViewById(R.id.account_description);
-        gnuCash = (EditText) findViewById(R.id.gnucash_account);
+        accountView = (AccountView) findViewById(R.id.account_view);
     }
 
     // event handlers
@@ -24,12 +21,12 @@ public class NewAccount extends Activity {
     public void onAddAccount(View v) {
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
-        if (!db.insertAccount(description.getText().toString(),
-                              gnuCash.getText().toString()))
+        if (!db.insertAccount(accountView.getAccountDescription(),
+                              accountView.getGnuCashAccount()))
             // TODO do something
             ;
 
-        description.setText("");
-        gnuCash.setText("");
+        accountView.setAccountDescription("");
+        accountView.setGnuCashAccount("");
     }
 }
