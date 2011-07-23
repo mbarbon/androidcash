@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (c) Mattia Barbon <mattia@barbon.org>
      distributed under the terms of the MIT license -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     >
-  <org.barbon.acash.ExpenseView
-      android:id="@+id/expense_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      />
-
-  <LinearLayout
-      android:orientation="horizontal"
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:gravity="bottom|right">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/from_expense_template"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_expense"
-        android:onClick="onAddExpense"
-        />
+      >
+      <org.barbon.acash.ExpenseView
+          android:id="@+id/expense_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="bottom|right">
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/from_expense_template"
+          />
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/add_expense"
+          android:onClick="onAddExpense"
+          />
+    </LinearLayout>
   </LinearLayout>
-</LinearLayout>
+</ScrollView>
