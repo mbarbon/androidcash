@@ -275,7 +275,7 @@ public class ExpenseDatabase {
 
             // amount
             qif.print('T');
-            qif.println(expenses.getFloat(2));
+            qif.println(-expenses.getFloat(2));
 
             // description
             qif.print('M');
