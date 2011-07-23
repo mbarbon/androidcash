@@ -13,6 +13,9 @@ import android.database.Cursor;
 
 import android.os.Bundle;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -40,6 +43,29 @@ public class AccountList extends ListActivity {
         lv.setTextFilterEnabled(true);
         lv.setOnItemClickListener(clickListener);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = new MenuInflater(this);
+
+        inflater.inflate(R.menu.accountlist, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.new_account:
+            startActivity(Globals.NEW_ACCOUNT_INTENT);
+
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // implementation
 
     private void setAccountData(Cursor data) {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
