@@ -13,7 +13,7 @@ import android.os.Bundle;
 
 import android.view.View;
 
-public class AccountDetail extends Activity {
+public class AccountDetails extends Activity {
     public static final String ACCOUNT_ID = "accountId";
 
     private AccountView accountView;

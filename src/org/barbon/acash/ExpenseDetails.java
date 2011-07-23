@@ -14,7 +14,7 @@ import android.os.Bundle;
 
 import android.view.View;
 
-public class ExpenseDetail extends Activity {
+public class ExpenseDetails extends Activity {
     private ExpenseView expenseView;
     private long expenseId;
 
@@ -22,7 +22,7 @@ public class ExpenseDetail extends Activity {
         new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int button) {
                 ExpenseDatabase db =
-                    ExpenseDatabase.getInstance(ExpenseDetail.this);
+                    ExpenseDatabase.getInstance(ExpenseDetails.this);
 
                 // TODO check return value
                 db.deleteExpense(expenseId);

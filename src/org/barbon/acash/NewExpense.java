@@ -8,8 +8,6 @@ package org.barbon.acash;
 import android.app.Activity;
 import android.app.Dialog;
 
-import android.content.Intent;
-
 import android.os.Bundle;
 import android.os.Environment;
 
@@ -68,15 +66,15 @@ public class NewExpense extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.new_account:
-            addNewAccount();
+            startActivity(Globals.NEW_ACCOUNT_INTENT);
 
             return true;
         case R.id.expense_list:
-            showExpenseList();
+            startActivity(Globals.EXPENSE_LIST_INTENT);
 
             return true;
         case R.id.account_list:
-            showAccountList();
+            startActivity(Globals.ACCOUNT_LIST_INTENT);
 
             return true;
         case R.id.export_expenses:
@@ -94,24 +92,6 @@ public class NewExpense extends Activity {
         default:
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void addNewAccount() {
-        Intent intent = new Intent("org.barbon.acash.NEW_ACCOUNT");
-
-        startActivity(intent);
-    }
-
-    private void showExpenseList() {
-        Intent intent = new Intent("org.barbon.acash.EXPENSE_LIST");
-
-        startActivity(intent);
-    }
-
-    private void showAccountList() {
-        Intent intent = new Intent("org.barbon.acash.ACCOUNT_LIST");
-
-        startActivity(intent);
     }
 
     private void exportExpenses() {

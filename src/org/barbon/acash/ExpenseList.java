@@ -77,9 +77,9 @@ public class ExpenseList extends ListActivity {
     }
 
     private void displayExpense(long id) {
-        Intent intent = new Intent("org.barbon.acash.EXPENSE_DETAIL");
+        Intent intent = new Intent(Globals.EXPENSE_DETAILS_INTENT);
 
-        intent.putExtra(ExpenseDetail.EXPENSE_ID, id);
+        intent.putExtra(ExpenseDetails.EXPENSE_ID, id);
 
         startActivity(intent);
     }

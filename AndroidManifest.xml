@@ -30,15 +30,15 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <activity android:name=".ExpenseDetail">
+    <activity android:name=".ExpenseDetails">
       <intent-filter>
-        <action android:name="org.barbon.acash.EXPENSE_DETAIL" />
+        <action android:name="org.barbon.acash.EXPENSE_DETAILS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <activity android:name=".AccountDetail">
+    <activity android:name=".AccountDetails">
       <intent-filter>
-        <action android:name="org.barbon.acash.ACCOUNT_DETAIL" />
+        <action android:name="org.barbon.acash.ACCOUNT_DETAILS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>

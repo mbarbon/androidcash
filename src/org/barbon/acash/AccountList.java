@@ -52,9 +52,9 @@ public class AccountList extends ListActivity {
     }
 
     private void displayAccount(long id) {
-        Intent intent = new Intent("org.barbon.acash.ACCOUNT_DETAIL");
+        Intent intent = new Intent(Globals.ACCOUNT_DETAILS_INTENT);
 
-        intent.putExtra(AccountDetail.ACCOUNT_ID, id);
+        intent.putExtra(AccountDetails.ACCOUNT_ID, id);
 
         startActivity(intent);
     }
