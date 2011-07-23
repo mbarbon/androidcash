@@ -27,6 +27,8 @@ import java.util.Date;
 public class NewExpense extends Activity {
     private ExpenseView expenseView;
 
+    private static final int ABOUT_DIALOG = 1;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,22 @@ public class NewExpense extends Activity {
         setContentView(R.layout.newexpense);
 
         expenseView = (ExpenseView) findViewById(R.id.expense_view);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // first-time only about dialog
+        showAboutDialog(true);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle bundle) {
+        if (id == ABOUT_DIALOG)
+            return AboutDialog.showDialog(this, bundle.getBoolean("firstTime"));
+
+        return null;
     }
 
     @Override
@@ -69,13 +87,9 @@ public class NewExpense extends Activity {
 
             return true;
         case R.id.about_acash:
-        {
-            Dialog about = new AboutDialog(this);
-
-            about.show();
+            showAboutDialog(false);
 
             return true;
-        }
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -85,6 +99,14 @@ public class NewExpense extends Activity {
         Intent intent = new Intent("org.barbon.acash.NEW_ACCOUNT");
 
         startActivity(intent);
+    }
+
+    private void showAboutDialog(boolean firstTime) {
+        Bundle args = new Bundle();
+
+        args.putBoolean("firstTime", firstTime);
+
+        showDialog(ABOUT_DIALOG, args);
     }
 
     private void showExpenseList() {
