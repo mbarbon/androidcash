@@ -43,13 +43,14 @@ public class NewExpense extends Activity {
         super.onStart();
 
         // first-time only about dialog
-        showAboutDialog(true);
+        if (AboutDialog.showFirstTime(this))
+            showDialog(ABOUT_DIALOG);
     }
 
     @Override
     protected Dialog onCreateDialog(int id, Bundle bundle) {
         if (id == ABOUT_DIALOG)
-            return AboutDialog.showDialog(this, bundle.getBoolean("firstTime"));
+            return new AboutDialog(this);
 
         return null;
     }
@@ -87,7 +88,7 @@ public class NewExpense extends Activity {
 
             return true;
         case R.id.about_acash:
-            showAboutDialog(false);
+            showDialog(ABOUT_DIALOG);
 
             return true;
         default:
@@ -99,14 +100,6 @@ public class NewExpense extends Activity {
         Intent intent = new Intent("org.barbon.acash.NEW_ACCOUNT");
 
         startActivity(intent);
-    }
-
-    private void showAboutDialog(boolean firstTime) {
-        Bundle args = new Bundle();
-
-        args.putBoolean("firstTime", firstTime);
-
-        showDialog(ABOUT_DIALOG, args);
     }
 
     private void showExpenseList() {

@@ -40,15 +40,11 @@ public class AboutDialog extends Dialog {
         super.onBackPressed();
     }
 
-    public static Dialog showDialog(Context context, boolean firstTime) {
-        if (firstTime) {
-            SharedPreferences prefs =
-                context.getSharedPreferences("global", Context.MODE_PRIVATE);
+    /* returns true if the dialog has not been shown yet */
+    public static boolean showFirstTime(Context context) {
+        SharedPreferences prefs =
+            context.getSharedPreferences("global", Context.MODE_PRIVATE);
 
-            if (prefs.getBoolean("displayed_about", false))
-                return null;
-        }
-
-        return new AboutDialog(context);
+        return !prefs.getBoolean("displayed_about", false);
     }
 }
