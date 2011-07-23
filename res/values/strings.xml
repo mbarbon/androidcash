@@ -19,10 +19,16 @@
     <string name="export_expenses">Export expenses</string>
     <string name="delete_expenses">Delete expenses</string>
     <string name="update_account">Update account</string>
-    <string name="update_expense">Update expense</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
 
     <!-- menu -->
     <string name="about_acash">About</string>
+
+    <!-- expense detail -->
+    <string name="alert_delete_expense">Are you sure you want to permanently delete the expense</string>
+    <string name="update_expense">Update expense</string>
+    <string name="delete_expense">Delete expense</string>
 
     <!-- about dialog -->
     <string name="about_title">About Android Cash</string>

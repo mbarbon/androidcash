@@ -156,6 +156,13 @@ public class ExpenseDatabase {
                          new String[] { Long.toString(id) }) == 1;
     }
 
+    public boolean deleteExpense(long id) {
+        SQLiteDatabase db = getDatabase();
+
+        return db.delete(EXPENSES_TABLE, "id = ?",
+                         new String[] { Long.toString(id) }) == 1;
+    }
+
     public ContentValues getAccount(long id) {
         SQLiteDatabase db = getDatabase();
         Cursor cursor = db.rawQuery(

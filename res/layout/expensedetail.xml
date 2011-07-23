@@ -21,6 +21,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/delete_expense"
+        android:onClick="onDeleteExpense"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/update_expense"
         android:onClick="onUpdateExpense"
         />

@@ -6,8 +6,9 @@
 package org.barbon.acash;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 
-import android.database.Cursor;
+import android.content.DialogInterface;
 
 import android.os.Bundle;
 
@@ -16,6 +17,20 @@ import android.view.View;
 public class ExpenseDetail extends Activity {
     private ExpenseView expenseView;
     private long expenseId;
+
+    private DialogInterface.OnClickListener deleteExpense =
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int button) {
+                ExpenseDatabase db =
+                    ExpenseDatabase.getInstance(ExpenseDetail.this);
+
+                // TODO check return value
+                db.deleteExpense(expenseId);
+
+                // exit
+                finish();
+            }
+        };
 
     public static final String EXPENSE_ID = "expenseId";
 
@@ -42,5 +57,16 @@ public class ExpenseDetail extends Activity {
                          expenseView.getExpenseAmount(),
                          expenseView.getExpenseDate(),
                          expenseView.getExpenseDescription());
+    }
+
+    public void onDeleteExpense(View v) {
+        AlertDialog.Builder confirm = new AlertDialog.Builder(this);
+
+        confirm.setTitle(expenseView.getExpenseDescription());
+        confirm.setMessage(R.string.alert_delete_expense);
+        confirm.setPositiveButton(R.string.delete, deleteExpense);
+        confirm.setNegativeButton(R.string.cancel, null);
+
+        confirm.show();
     }
 }
