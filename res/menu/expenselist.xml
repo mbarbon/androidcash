@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Mattia Barbon <mattia@barbon.org>
+     distributed under the terms of the MIT license -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+  <item
+      android:id="@+id/export_expenses"
+      android:icon="@drawable/ic_menu_save"
+      android:title="@string/export_expenses"
+      />
+  <item
+      android:id="@+id/delete_expenses"
+      android:icon="@drawable/ic_menu_delete"
+      android:title="@string/delete_expenses"
+      />
+</menu>

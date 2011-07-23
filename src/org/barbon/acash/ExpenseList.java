@@ -12,13 +12,19 @@ import android.content.Intent;
 import android.database.Cursor;
 
 import android.os.Bundle;
+import android.os.Environment;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import java.io.File;
 
 import java.text.DecimalFormat;
 
@@ -63,6 +69,36 @@ public class ExpenseList extends ListActivity {
         lv.setOnItemClickListener(clickListener);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = new MenuInflater(this);
+
+        inflater.inflate(R.menu.expenselist, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.export_expenses:
+            exportExpenses();
+
+            return true;
+        case R.id.delete_expenses:
+            deleteExpenses();
+
+            // close the activity since there are no more expenses
+            finish();
+
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // implementation
+
     private void setExpenseData(Cursor data) {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
             this, R.layout.expenseitem, data,
@@ -82,5 +118,28 @@ public class ExpenseList extends ListActivity {
         intent.putExtra(ExpenseDetails.EXPENSE_ID, id);
 
         startActivity(intent);
+    }
+
+    private void exportExpenses() {
+        File publicDir = Environment.getExternalStorageDirectory();
+        File appDir = new File(publicDir, "AndroidCash");
+        File qifFile = new File(appDir, "acash.qif"); // TODO config
+
+        // TODO check file overwrite, directory creation, external storage
+        appDir.mkdirs();
+
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+
+        if (!db.exportQif(qifFile))
+            // TODO do something
+            ;
+    }
+
+    private void deleteExpenses() {
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+
+        if (!db.deleteExpenses())
+            // TODO do something
+            ;
     }
 }
