@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Mattia Barbon <mattia@barbon.org>
+     distributed under the terms of the MIT license -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <TextView

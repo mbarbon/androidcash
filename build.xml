@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) Mattia Barbon <mattia@barbon.org>
+     distributed under the terms of the MIT license -->
 <project name="AndroidCash" default="help">
 
 <!-- The local.properties file is created and updated by the 'android'

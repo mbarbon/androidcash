@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Mattia Barbon <mattia@barbon.org>
+     distributed under the terms of the MIT license -->
 <resources>
     <string name="app_name">Android Cash</string>
     <string name="account_from_prompt">From account</string>
