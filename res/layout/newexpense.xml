@@ -23,11 +23,11 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="bottom|right">
-      <Button
+      <!--Button
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/from_expense_template"
-          />
+          /-->
       <Button
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
