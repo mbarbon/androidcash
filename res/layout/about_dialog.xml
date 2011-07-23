@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Mattia Barbon <mattia@barbon.org>
+     distributed under the terms of the MIT license -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="8dp"
+      >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/icon"
+          />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/about_app_description"
+          android:paddingLeft="10dp"
+          />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/about_clickable_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_source_code"
+        android:linksClickable="true"
+        android:paddingBottom="12dp"
+        />
+    <TextView
+        android:id="@+id/about_clickable_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_icon"
+        android:linksClickable="true"
+        android:paddingBottom="12dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_license"
+        />
+  </LinearLayout>
+</ScrollView>

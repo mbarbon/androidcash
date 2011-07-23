@@ -20,4 +20,45 @@
     <string name="delete_expenses">Delete expenses</string>
     <string name="update_account">Update account</string>
     <string name="update_expense">Update expense</string>
+
+    <!-- menu -->
+    <string name="about_acash">About</string>
+
+    <!-- about dialog -->
+    <string name="about_title">About Android Cash</string>
+    <string name="about_app_description">Android Cash\nCopyright (c) 2011 Mattia Barbon\n\n</string>
+    <string name="about_source_code">
+The source code for this program is available on
+<a href="http://github.com/mbarbon/androidcash">GitHub</a> and is
+distributed under the MIT license (full license text is reproduced
+below).
+    </string>
+    <string name="about_icon">
+The program icon was created by
+<a href="http://www.dapino-colada.nl/">DaPino Colada</a> and is available
+under the Creative Commons Attribution-NonCommercial 3.0 (CC BY-NC
+3.0) license.
+    </string>
+    <string name="about_license">
+<b>MIT LICENSE</b>\n\n
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:\n\n
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.\n\n
+
+<b>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</b>
+    </string>
 </resources>
