@@ -8,6 +8,10 @@ package org.barbon.acash;
 import android.app.Activity;
 import android.app.Dialog;
 
+import android.content.DialogInterface;
+
+import android.database.Cursor;
+
 import android.os.Bundle;
 
 import android.view.Menu;
@@ -43,9 +47,31 @@ public class NewExpense extends Activity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        // go to the 'new account' activity if < 2 accounts and the
+        // about dialog is not shown
+        if (!AboutDialog.showFirstTime(this))
+            showNewAccountIfNeeded();
+    }
+
+    @Override
     protected Dialog onCreateDialog(int id, Bundle bundle) {
         if (id == ABOUT_DIALOG)
-            return new AboutDialog(this);
+        {
+            Dialog about = new AboutDialog(this);
+
+            // go to the 'new account' activity if < 2 accounts
+            about.setOnDismissListener(
+                new DialogInterface.OnDismissListener() {
+                    public void onDismiss(DialogInterface dialog) {
+                        showNewAccountIfNeeded();
+                    }
+                });
+
+            return about;
+        }
 
         return null;
     }
@@ -81,6 +107,16 @@ public class NewExpense extends Activity {
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    // implementation
+
+    private void showNewAccountIfNeeded() {
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+        Cursor accounts = db.getAccountList();
+
+        if (accounts.getCount() < 2)
+            startActivity(Globals.NEW_ACCOUNT_INTENT);
     }
 
     // event handlers
