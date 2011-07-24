@@ -63,9 +63,9 @@ public class NewExpense extends Activity {
             Dialog about = new AboutDialog(this);
 
             // go to the 'new account' activity if < 2 accounts
-            about.setOnDismissListener(
-                new DialogInterface.OnDismissListener() {
-                    public void onDismiss(DialogInterface dialog) {
+            about.setOnCancelListener(
+                new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
                         showNewAccountIfNeeded();
                     }
                 });
