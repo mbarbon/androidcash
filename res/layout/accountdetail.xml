@@ -26,6 +26,12 @@
       <Button
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:text="@string/delete_account"
+          android:onClick="onDeleteAccount"
+          />
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
           android:text="@string/update_account"
           android:onClick="onUpdateAccount"
           />

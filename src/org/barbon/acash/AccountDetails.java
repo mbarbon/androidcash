@@ -6,8 +6,10 @@
 package org.barbon.acash;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 
 import android.os.Bundle;
 
@@ -18,6 +20,20 @@ public class AccountDetails extends Activity {
 
     private AccountView accountView;
     private long accountId;
+
+    private DialogInterface.OnClickListener deleteAccount =
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int button) {
+                ExpenseDatabase db =
+                    ExpenseDatabase.getInstance(AccountDetails.this);
+
+                // TODO check return value
+                db.deleteAccountAndExpenses(accountId);
+
+                // exit
+                finish();
+            }
+        };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,5 +63,16 @@ public class AccountDetails extends Activity {
                               accountView.getGnuCashAccount()))
             // TODO do something
             ;
+    }
+
+    public void onDeleteAccount(View v) {
+        AlertDialog.Builder confirm = new AlertDialog.Builder(this);
+
+        confirm.setTitle(accountView.getAccountDescription());
+        confirm.setMessage(R.string.alert_delete_account);
+        confirm.setPositiveButton(R.string.delete, deleteAccount);
+        confirm.setNegativeButton(R.string.cancel, null);
+
+        confirm.show();
     }
 }

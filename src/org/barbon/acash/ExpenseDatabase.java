@@ -124,6 +124,32 @@ public class ExpenseDatabase {
                          new String[] { Long.toString(id) }) == 1;
     }
 
+    public boolean accountHasExpenses(long id) {
+        SQLiteDatabase db = getDatabase();
+        Cursor count = db.rawQuery(
+            "SELECT COUNT(*)" +
+            "     FROM " + EXPENSES_TABLE +
+            "     WHERE account_from = ? OR account_to = ?",
+            new String[] { Long.toString(id),
+                           Long.toString(id) });
+
+        count.moveToNext();
+
+        return count.getInt(0) > 0;
+    }
+
+    public boolean deleteAccountAndExpenses(long id) {
+        SQLiteDatabase db = getDatabase();
+
+        if (db.delete(EXPENSES_TABLE, "account_from = ? OR account_to = ?",
+                      new String[] { Long.toString(id),
+                                     Long.toString(id) }) == -1)
+            return false;
+
+        return db.delete(ACCOUNTS_TABLE, "id = ?",
+                         new String[] { Long.toString(id) }) == 1;
+    }
+
     public boolean insertExpense(int from_account, int to_account,
                                  double amount, Date date,
                                  String description) {
