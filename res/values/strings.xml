@@ -26,7 +26,7 @@
     <string name="about_acash">About</string>
 
     <!-- expense detail -->
-    <string name="alert_delete_expense">Are you sure you want to permanently delete the expense</string>
+    <string name="alert_delete_expense">Are you sure you want to permanently delete the expense?</string>
     <string name="update_expense">Update expense</string>
     <string name="delete_expense">Delete expense</string>
 
