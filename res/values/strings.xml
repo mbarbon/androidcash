@@ -12,7 +12,6 @@
     <string name="new_account">New account</string>
     <string name="account_description">Description</string>
     <string name="gnucash_account_name">GNUCash account</string>
-    <string name="add_account">Add account</string>
     <string name="expense_list">Expenses</string>
     <string name="account_list">Accounts</string>
     <string name="expense_description_prompt">Description</string>
@@ -23,6 +22,10 @@
 
     <!-- menu -->
     <string name="about_acash">About</string>
+
+    <!-- new account -->
+    <string name="new_account_at_least_2">You must define at least two accounts before entering an expense entry</string>
+    <string name="add_account">Add account</string>
 
     <!-- account detail -->
     <string name="alert_delete_account">Are you sure you want to permanently delete the account and all associated expenses?</string>

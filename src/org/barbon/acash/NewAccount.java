@@ -7,6 +7,8 @@ package org.barbon.acash;
 
 import android.app.Activity;
 
+import android.database.Cursor;
+
 import android.os.Bundle;
 
 import android.view.View;
@@ -19,6 +21,18 @@ public class NewAccount extends Activity {
         setContentView(R.layout.newaccount);
 
         accountView = (AccountView) findViewById(R.id.account_view);
+        displayHelpMessage();
+    }
+
+    // implementation
+
+    private void displayHelpMessage() {
+        View help = findViewById(R.id.new_account_at_least_2);
+
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+        Cursor accounts = db.getAccountList();
+
+        help.setVisibility(accounts.getCount() >= 2 ? View.GONE : View.VISIBLE);
     }
 
     // event handlers
@@ -33,5 +47,6 @@ public class NewAccount extends Activity {
 
         accountView.setAccountDescription("");
         accountView.setGnuCashAccount("");
+        displayHelpMessage();
     }
 }

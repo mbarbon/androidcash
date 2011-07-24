@@ -16,6 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+    <TextView
+        android:id="@+id/new_account_at_least_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_account_at_least_2"
+        android:textSize="@dimen/help_text_size"
+        android:paddingTop="12dp"
+        />
 
     <LinearLayout
         android:orientation="horizontal"
