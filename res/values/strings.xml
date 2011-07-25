@@ -22,6 +22,7 @@
 
     <!-- menu -->
     <string name="about_acash">About</string>
+    <string name="new_expense">New expense</string>
 
     <!-- new account -->
     <string name="new_account_at_least_2">You must define at least two accounts before entering an expense entry</string>

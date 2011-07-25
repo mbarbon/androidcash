@@ -81,6 +81,11 @@ public class ExpenseList extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+        case R.id.new_expense:
+            // go back to the initial activity
+            finish();
+
+            return true;
         case R.id.export_expenses:
             exportExpenses();
 
