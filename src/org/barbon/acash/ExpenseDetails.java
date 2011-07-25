@@ -16,6 +16,8 @@ import android.view.View;
 
 public class ExpenseDetails extends Activity {
     private ExpenseView expenseView;
+    private View updateButton;
+
     private long expenseId;
 
     private DialogInterface.OnClickListener deleteExpense =
@@ -34,6 +36,15 @@ public class ExpenseDetails extends Activity {
 
     public static final String EXPENSE_ID = "expenseId";
 
+    // enable/disable the 'update expense' button
+    private ExpenseView.OnContentChangedListener onExpenseChanged =
+        new ExpenseView.OnContentChangedListener() {
+            public void onContentChanged(ExpenseView view) {
+                updateButton.setEnabled(view.isValidExpense());
+            }
+        };
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +53,9 @@ public class ExpenseDetails extends Activity {
         expenseId = getIntent().getLongExtra(EXPENSE_ID, -1);;
 
         expenseView = (ExpenseView) findViewById(R.id.expense_view);
+        updateButton = findViewById(R.id.update_expense);
+
+        expenseView.setOnContentChangedListener(onExpenseChanged);
         expenseView.setExpenseId(expenseId);
     }
 
