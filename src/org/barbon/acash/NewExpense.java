@@ -113,9 +113,8 @@ public class NewExpense extends Activity {
 
     private void showNewAccountIfNeeded() {
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
-        Cursor accounts = db.getAccountList();
 
-        if (accounts.getCount() < 2)
+        if (db.getAccountCount() < 2)
             startActivity(Globals.NEW_ACCOUNT_INTENT);
     }
 

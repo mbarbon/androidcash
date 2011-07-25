@@ -93,6 +93,15 @@ public class ExpenseDatabase {
             "     ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN, null);
     }
 
+    public int getAccountCount() {
+        Cursor accounts = getAccountList();
+        int count = accounts.getCount();
+
+        accounts.close();
+
+        return count;
+    }
+
     public Cursor getExpenseList() {
         SQLiteDatabase db = getDatabase();
 

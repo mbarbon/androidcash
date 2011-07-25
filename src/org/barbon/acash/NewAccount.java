@@ -30,9 +30,9 @@ public class NewAccount extends Activity {
         View help = findViewById(R.id.new_account_at_least_2);
 
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
-        Cursor accounts = db.getAccountList();
 
-        help.setVisibility(accounts.getCount() >= 2 ? View.GONE : View.VISIBLE);
+        help.setVisibility(db.getAccountCount() >= 2 ? View.GONE :
+                                                       View.VISIBLE);
     }
 
     // event handlers
