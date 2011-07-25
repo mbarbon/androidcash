@@ -201,6 +201,20 @@ public class ExpenseView extends LinearLayout {
         return getAccountId(R.id.to_account);
     }
 
+    public boolean isValidExpense() {
+        if (getExpenseAccountFrom() == getExpenseAccountTo())
+            return false;
+
+        if (getExpenseDescription().length() == 0)
+            return false;
+
+        if (expenseAmount.getText().toString().length() == 0 ||
+            getExpenseAmount() == 0.0)
+            return false;
+
+        return true;
+    }
+
     public void setOnContentChangedListener(OnContentChangedListener listener) {
         contentChangedListener = listener;
     }
