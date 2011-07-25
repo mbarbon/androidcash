@@ -112,6 +112,25 @@ public class ExpenseDatabase {
             "     ORDER BY " + DATE_COLUMN, null);
     }
 
+    public boolean isAccountDuplicate(String description, String gnuCash,
+                                      long exceptId) {
+        SQLiteDatabase db = getDatabase();
+        Cursor accounts = db.rawQuery(
+            "SELECT id AS _id" +
+            "    FROM " + ACCOUNTS_TABLE +
+            "    WHERE     id <> ?" +
+            "          AND (   lower(" + GNUCASH_ACCOUNT_COLUMN + ")" +
+            "                      = lower(?)" +
+            "               OR lower(" + ACCOUNT_DESCRIPTION_COLUMN + ")" +
+            "                      = lower(?))",
+            new String[] { Long.toString(exceptId), gnuCash, description });
+        int count = accounts.getCount();
+
+        accounts.close();
+
+        return count > 0;
+    }
+
     public boolean insertAccount(String description, String gnuCash) {
         SQLiteDatabase db = getDatabase();
         ContentValues vals = new ContentValues();

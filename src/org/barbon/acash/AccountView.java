@@ -75,6 +75,21 @@ public class AccountView extends LinearLayout {
         gnuCash.setText(name);
     }
 
+    public boolean isValidAccount() {
+        return isValidAccount(-1);
+    }
+
+    public boolean isValidAccount(long skipId) {
+        String acct = getGnuCashAccount(), descr = getAccountDescription();
+
+        if (acct.length() == 0 || descr.length() == 0)
+            return false;
+
+        ExpenseDatabase db = ExpenseDatabase.getInstance(getContext());
+
+        return !db.isAccountDuplicate(descr, acct, skipId);
+    }
+
     public void setOnContentChangedListener(OnContentChangedListener listener) {
         contentChangedListener = listener;
     }
