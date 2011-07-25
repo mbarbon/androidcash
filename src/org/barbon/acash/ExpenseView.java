@@ -67,6 +67,7 @@ public class ExpenseView extends LinearLayout {
             }
         };
 
+    // TODO duplicate in ExpenseView
     // watch amount/description changes
     private class TextContentChanged implements TextWatcher {
         public void afterTextChanged(Editable s) {
