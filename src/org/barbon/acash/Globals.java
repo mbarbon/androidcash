@@ -10,6 +10,9 @@ import android.content.Intent;
 public class Globals {
     // intents
 
+    public static final Intent NEW_EXPENSE_INTENT =
+        new Intent("org.barbon.acash.NEW_EXPENSE");
+
     public static final Intent NEW_ACCOUNT_INTENT =
         new Intent("org.barbon.acash.NEW_ACCOUNT");
 
