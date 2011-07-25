@@ -32,8 +32,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Date;
+import java.util.Locale;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 public class ExpenseView extends LinearLayout {
     private EditText expenseAmount, expenseDescription;
@@ -42,7 +44,8 @@ public class ExpenseView extends LinearLayout {
     private Date expenseDate;
     private Context context;
 
-    private DecimalFormat format = new DecimalFormat(Globals.NUMBER_FORMAT);
+    private DecimalFormat format = new DecimalFormat(
+        Globals.NUMBER_FORMAT, new DecimalFormatSymbols(Locale.US));
 
     public interface OnContentChangedListener {
         public void onContentChanged(ExpenseView view);
