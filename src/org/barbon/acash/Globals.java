@@ -27,4 +27,8 @@ public class Globals {
 
     public static final Intent EXPENSE_DETAILS_INTENT =
         new Intent("org.barbon.acash.EXPENSE_DETAILS");
+
+    // formats
+
+    public static final String NUMBER_FORMAT = "#.######";
 }

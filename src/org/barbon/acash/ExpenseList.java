@@ -32,7 +32,7 @@ public class ExpenseList extends ListActivity {
     // better format for the amount
     private static class SimpleBinder
             implements SimpleCursorAdapter.ViewBinder {
-        DecimalFormat format = new DecimalFormat("#.######");
+        DecimalFormat format = new DecimalFormat(Globals.NUMBER_FORMAT);
 
         public boolean setViewValue(View view, Cursor cursor, int column) {
             if (view.getId() != R.id.expense_item_amount)
