@@ -2,18 +2,18 @@
 <!-- Copyright (c) Mattia Barbon <mattia@barbon.org>
      distributed under the terms of the MIT license -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     >
   <LinearLayout
       android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
       android:padding="8dp"
       >
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         >
       <ImageView
@@ -30,7 +30,7 @@
     </LinearLayout>
     <TextView
         android:id="@+id/about_clickable_1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_source_code"
         android:linksClickable="true"
@@ -38,14 +38,14 @@
         />
     <TextView
         android:id="@+id/about_clickable_2"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_icon"
         android:linksClickable="true"
         android:paddingBottom="12dp"
         />
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_license"
         />
