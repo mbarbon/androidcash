@@ -30,6 +30,7 @@
           android:onClick="onDeleteAccount"
           />
       <Button
+          android:id="@+id/update_account"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/update_account"

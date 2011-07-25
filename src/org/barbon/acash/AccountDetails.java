@@ -19,6 +19,8 @@ public class AccountDetails extends Activity {
     public static final String ACCOUNT_ID = "accountId";
 
     private AccountView accountView;
+    private View updateButton;
+
     private long accountId;
 
     private DialogInterface.OnClickListener deleteAccount =
@@ -35,12 +37,23 @@ public class AccountDetails extends Activity {
             }
         };
 
+    // enable/disable the 'update account' button
+    private AccountView.OnContentChangedListener onAccountChanged =
+        new AccountView.OnContentChangedListener() {
+            public void onContentChanged(AccountView view) {
+                updateButton.setEnabled(view.isValidAccount(accountId));
+            }
+        };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.accountdetail);
 
         accountView = (AccountView) findViewById(R.id.account_view);
+        updateButton = findViewById(R.id.update_account);
+
+        accountView.setOnContentChangedListener(onAccountChanged);
 
         accountId = getIntent().getLongExtra(ACCOUNT_ID, -1);
 

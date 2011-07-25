@@ -15,12 +15,27 @@ import android.view.View;
 
 public class NewAccount extends Activity {
     private AccountView accountView;
+    private View addButton;
+
+    // enable/disable the 'add account' button
+    private AccountView.OnContentChangedListener onAccountChanged =
+        new AccountView.OnContentChangedListener() {
+            public void onContentChanged(AccountView view) {
+                addButton.setEnabled(view.isValidAccount());
+            }
+        };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newaccount);
 
         accountView = (AccountView) findViewById(R.id.account_view);
+        addButton = findViewById(R.id.add_account);
+
+        accountView.setOnContentChangedListener(onAccountChanged);
+
+        accountView.setAccountDescription("");
+        accountView.setGnuCashAccount("");
         displayHelpMessage();
     }
 
