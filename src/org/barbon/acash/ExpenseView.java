@@ -13,12 +13,15 @@ import android.content.ContentValues;
 
 import android.database.Cursor;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 
 import android.util.AttributeSet;
 
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
 import android.widget.DatePicker;
@@ -41,6 +44,13 @@ public class ExpenseView extends LinearLayout {
 
     private DecimalFormat format = new DecimalFormat(Globals.NUMBER_FORMAT);
 
+    public interface OnContentChangedListener {
+        public void onContentChanged(ExpenseView view);
+    }
+
+    private OnContentChangedListener contentChangedListener;
+
+    // update expense date
     private DatePickerDialog.OnDateSetListener dateSet =
         new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year,
@@ -57,6 +67,23 @@ public class ExpenseView extends LinearLayout {
             }
         };
 
+    // watch amount/description changes
+    private class TextContentChanged implements TextWatcher {
+        public void afterTextChanged(Editable s) {
+            contentChanged();
+        }
+
+        public void beforeTextChanged(CharSequence s, int start,
+                                      int count, int after) {
+            // nothing to do
+        }
+
+        public void onTextChanged(CharSequence s, int start,
+                                  int before, int count) {
+            // nothing to do
+        }
+    }
+
     public ExpenseView(Context cxt, AttributeSet attrs) {
         super(cxt, attrs);
 
@@ -67,12 +94,32 @@ public class ExpenseView extends LinearLayout {
 
         ExpenseDatabase db = ExpenseDatabase.getInstance(context);
 
-        setAccountData(R.id.from_account, db.getFromAccountList());
-        setAccountData(R.id.to_account, db.getToAccountList());
+        AdapterView.OnItemSelectedListener itemSelected =
+            new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView<?> parent, View view,
+                                           int position, long id)
+                {
+                    contentChanged();
+                }
+
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // nothing to do
+                }
+            };
+
+        setAccountData(R.id.from_account, db.getFromAccountList(),
+                       itemSelected);
+        setAccountData(R.id.to_account, db.getToAccountList(),
+                       itemSelected);
 
         expenseDateView = (TextView) findViewById(R.id.expense_date);
         expenseAmount = (EditText) findViewById(R.id.expense_amount);
         expenseDescription = (EditText) findViewById(R.id.expense_description);
+
+        TextWatcher textChanged = new TextContentChanged();
+
+        expenseAmount.addTextChangedListener(textChanged);
+        expenseDescription.addTextChangedListener(textChanged);
 
         expenseDateView.setOnClickListener(dateClicked);
 
@@ -154,9 +201,14 @@ public class ExpenseView extends LinearLayout {
         return getAccountId(R.id.to_account);
     }
 
+    public void setOnContentChangedListener(OnContentChangedListener listener) {
+        contentChangedListener = listener;
+    }
+
     // implementation
 
-    private void setAccountData(int id, Cursor data) {
+    private void setAccountData(int id, Cursor data,
+                                AdapterView.OnItemSelectedListener selected) {
         Spinner spinner = (Spinner) findViewById(id);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
             context, android.R.layout.simple_spinner_item, data,
@@ -168,6 +220,7 @@ public class ExpenseView extends LinearLayout {
         ((Activity) context).startManagingCursor(data); // TODO deprecated
 
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(selected);
     }
 
     private int getAccountId(int id) {
@@ -196,5 +249,10 @@ public class ExpenseView extends LinearLayout {
                                  getExpenseDay());
 
         dateDialog.show();
+    }
+
+    private void contentChanged() {
+        if (contentChangedListener != null)
+            contentChangedListener.onContentChanged(this);
     }
 }
