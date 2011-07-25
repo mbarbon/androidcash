@@ -30,12 +30,16 @@ import android.widget.TextView;
 
 import java.util.Date;
 
+import java.text.DecimalFormat;
+
 public class ExpenseView extends LinearLayout {
     private EditText expenseAmount, expenseDescription;
 
     private TextView expenseDateView;
     private Date expenseDate;
     private Context context;
+
+    private DecimalFormat format = new DecimalFormat(Globals.NUMBER_FORMAT);
 
     private DatePickerDialog.OnDateSetListener dateSet =
         new DatePickerDialog.OnDateSetListener() {
@@ -83,7 +87,7 @@ public class ExpenseView extends LinearLayout {
         setExpenseDate(vals.getAsInteger(ExpenseDatabase.DATE_YEAR_COLUMN),
                        vals.getAsInteger(ExpenseDatabase.DATE_MONTH_COLUMN),
                        vals.getAsInteger(ExpenseDatabase.DATE_DAY_COLUMN));
-        expenseAmount.setText(Double.toString(vals.getAsDouble(ExpenseDatabase.AMOUNT_COLUMN)));
+        setExpenseAmount(vals.getAsDouble(ExpenseDatabase.AMOUNT_COLUMN));
         expenseDescription.setText(vals.getAsString(ExpenseDatabase.EXPENSE_DESCRIPTION_COLUMN));
         setAccountId(R.id.from_account, vals.getAsInteger(ExpenseDatabase.FROM_ACCOUNT_COLUMN));
         setAccountId(R.id.to_account, vals.getAsInteger(ExpenseDatabase.TO_ACCOUNT_COLUMN));
@@ -121,6 +125,10 @@ public class ExpenseView extends LinearLayout {
     }
 
     // other accessors
+
+    private void setExpenseAmount(double amount) {
+        expenseAmount.setText(format.format(amount));
+    }
 
     public double getExpenseAmount() {
         return Double.parseDouble(expenseAmount.getText().toString());
