@@ -67,6 +67,9 @@ public class ExpenseList extends ListActivity {
                 if (!db.deleteExpenses())
                     // TODO do something
                     ;
+
+                // close the activity since there are no more expenses
+                finish();
             }
         };
 
@@ -106,9 +109,6 @@ public class ExpenseList extends ListActivity {
             return true;
         case R.id.delete_expenses:
             deleteExpenses();
-
-            // close the activity since there are no more expenses
-            finish();
 
             return true;
         default:
