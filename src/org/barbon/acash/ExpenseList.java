@@ -5,8 +5,10 @@
 
 package org.barbon.acash;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.database.Cursor;
@@ -53,6 +55,18 @@ public class ExpenseList extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long rowId) {
                 displayExpense(rowId);
+            }
+        };
+
+    private DialogInterface.OnClickListener deleteAll =
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int button) {
+                ExpenseDatabase db =
+                    ExpenseDatabase.getInstance(ExpenseList.this);
+
+                if (!db.deleteExpenses())
+                    // TODO do something
+                    ;
             }
         };
 
@@ -141,10 +155,13 @@ public class ExpenseList extends ListActivity {
     }
 
     private void deleteExpenses() {
-        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+        AlertDialog.Builder confirm = new AlertDialog.Builder(this);
 
-        if (!db.deleteExpenses())
-            // TODO do something
-            ;
+        confirm.setTitle(R.string.confirm_delete_all_title);
+        confirm.setMessage(R.string.confirm_delete_all);
+        confirm.setPositiveButton(R.string.delete_all, deleteAll);
+        confirm.setNegativeButton(R.string.cancel, null);
+
+        confirm.show();
     }
 }

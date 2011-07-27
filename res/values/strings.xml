@@ -38,6 +38,11 @@
     <string name="update_expense">Update expense</string>
     <string name="delete_expense">Delete expense</string>
 
+    <!-- delete all dialog -->
+    <string name="confirm_delete_all_title">Delete all expenses</string>
+    <string name="confirm_delete_all">Are you sure you want to permanently delete all expenses?</string>
+    <string name="delete_all">Delete all</string>
+
     <!-- about dialog -->
     <string name="about_title">About Android Cash</string>
     <string name="about_app_description">Android Cash\nCopyright (c) 2011 Mattia Barbon\n\n</string>
