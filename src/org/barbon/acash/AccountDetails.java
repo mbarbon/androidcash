@@ -5,7 +5,6 @@
 
 package org.barbon.acash;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 
 import android.content.DialogInterface;
@@ -14,13 +13,8 @@ import android.os.Bundle;
 
 import android.view.View;
 
-public class AccountDetails extends Activity {
+public class AccountDetails extends AccountEdit {
     public static final String ACCOUNT_ID = "accountId";
-
-    private AccountView accountView;
-    private View updateButton;
-
-    private long accountId;
 
     private DialogInterface.OnClickListener deleteAccount =
         new DialogInterface.OnClickListener() {
@@ -36,21 +30,13 @@ public class AccountDetails extends Activity {
             }
         };
 
-    // enable/disable the 'update account' button
-    private AccountView.OnContentChangedListener onAccountChanged =
-        new AccountView.OnContentChangedListener() {
-            public void onContentChanged(AccountView view) {
-                updateButton.setEnabled(view.isValidAccount(accountId));
-            }
-        };
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.accountdetail);
 
         accountView = (AccountView) findViewById(R.id.account_view);
-        updateButton = findViewById(R.id.update_account);
+        actionButton = findViewById(R.id.update_account);
 
         accountView.setOnContentChangedListener(onAccountChanged);
 
@@ -69,6 +55,8 @@ public class AccountDetails extends Activity {
                               accountView.getGnuCashAccount()))
             // TODO do something
             ;
+
+        contentModified = false;
     }
 
     public void onDeleteAccount(View v) {
