@@ -8,7 +8,6 @@ package org.barbon.acash;
 import android.app.Activity;
 import android.app.AlertDialog;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
 
 import android.os.Bundle;
@@ -57,13 +56,7 @@ public class AccountDetails extends Activity {
 
         accountId = getIntent().getLongExtra(ACCOUNT_ID, -1);
 
-        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
-        ContentValues vals = db.getAccount(accountId);
-
-        accountView.setAccountDescription(
-            (String) vals.get(ExpenseDatabase.ACCOUNT_DESCRIPTION_COLUMN));
-        accountView.setGnuCashAccount(
-            (String) vals.get(ExpenseDatabase.GNUCASH_ACCOUNT_COLUMN));
+        accountView.setAccountId(accountId);
     }
 
     // event handlers

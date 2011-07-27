@@ -5,6 +5,7 @@
 
 package org.barbon.acash;
 
+import android.content.ContentValues;
 import android.content.Context;
 
 import android.text.Editable;
@@ -55,6 +56,16 @@ public class AccountView extends LinearLayout {
 
         description.addTextChangedListener(textChanged);
         gnuCash.addTextChangedListener(textChanged);
+    }
+
+    public void setAccountId(long id) {
+        ExpenseDatabase db = ExpenseDatabase.getInstance(getContext());
+        ContentValues vals = db.getAccount(id);
+
+        setAccountDescription(
+            (String) vals.get(ExpenseDatabase.ACCOUNT_DESCRIPTION_COLUMN));
+        setGnuCashAccount(
+            (String) vals.get(ExpenseDatabase.GNUCASH_ACCOUNT_COLUMN));
     }
 
     // accessors
