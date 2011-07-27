@@ -5,12 +5,13 @@
 
 package org.barbon.acash;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 
 import android.content.DialogInterface;
 
-public abstract class ItemEdit extends Activity {
+import org.barbon.acash.compat.CompatActivity;
+
+public abstract class ItemEdit extends CompatActivity {
     protected boolean contentModified;
 
     // discard changes

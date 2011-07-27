@@ -5,8 +5,6 @@
 
 package org.barbon.acash;
 
-import android.app.Dialog;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -14,7 +12,9 @@ import android.text.method.LinkMovementMethod;
 
 import android.widget.TextView;
 
-public class AboutDialog extends Dialog {
+import org.barbon.acash.compat.CompatDialog;
+
+public class AboutDialog extends CompatDialog {
     public AboutDialog(Context context) {
         super(context);
         setTitle(R.string.about_title);
