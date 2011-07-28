@@ -18,12 +18,17 @@
     <string name="export_expenses">Export expenses</string>
     <string name="delete_expenses">Delete expenses</string>
     <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
     <string name="delete">Delete</string>
 
     <!-- discard changes dialog -->
     <string name="item_modified_title">Unsaved changes</string>
     <string name="item_modified_message">There are unsaved changes, do you really want to discard them?</string>
     <string name="discard_changes">Discard</string>
+
+    <!-- expenses exported dialog -->
+    <string name="expenses_exported_title">Expenses successfully exported</string>
+    <string name="expenses_exported">The expenses have been exported to a QIF file\n\nPlease connect your device via USB and import the acash.qif file from the AndroidCash directory into GnuCash</string>
 
     <!-- menu -->
     <string name="about_acash">About</string>

@@ -152,6 +152,18 @@ public class ExpenseList extends ListActivity {
         if (!db.exportQif(qifFile))
             // TODO do something
             ;
+        else
+            showExpensesExported();
+    }
+
+    private void showExpensesExported() {
+        AlertDialog.Builder message = new AlertDialog.Builder(this);
+
+        message.setTitle(R.string.expenses_exported_title);
+        message.setMessage(R.string.expenses_exported);
+        message.setPositiveButton(R.string.ok, null);
+
+        message.show();
     }
 
     private void deleteExpenses() {
