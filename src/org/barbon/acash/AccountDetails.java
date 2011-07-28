@@ -43,6 +43,8 @@ public class AccountDetails extends AccountEdit {
         accountId = getIntent().getLongExtra(ACCOUNT_ID, -1);
 
         accountView.setAccountId(accountId);
+
+        contentModified = false;
     }
 
     // event handlers

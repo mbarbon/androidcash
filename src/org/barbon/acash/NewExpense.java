@@ -35,6 +35,8 @@ public class NewExpense extends ExpenseEdit {
         actionButton = findViewById(R.id.add_expense);
 
         expenseView.setOnContentChangedListener(onExpenseChanged);
+
+        contentModified = false;
     }
 
     @Override
@@ -134,5 +136,7 @@ public class NewExpense extends ExpenseEdit {
 
         expenseView.clearExpenseAmount();
         expenseView.clearExpenseDescription();
+
+        contentModified = false;
     }
 }
