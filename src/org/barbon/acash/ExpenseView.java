@@ -88,6 +88,24 @@ public class ExpenseView extends LinearLayout {
         }
     }
 
+    private class SelectionChangedListener
+        implements AdapterView.OnItemSelectedListener {
+        private long currentId = -1;
+
+        public void onItemSelected(AdapterView<?> parent, View view,
+                                   int position, long id)
+        {
+            if (currentId != -1 && currentId != id)
+                contentChanged();
+
+            currentId = id;
+        }
+
+        public void onNothingSelected(AdapterView<?> parent) {
+            // nothing to do
+        }
+    }
+
     public ExpenseView(Context cxt, AttributeSet attrs) {
         super(cxt, attrs);
 
@@ -98,23 +116,8 @@ public class ExpenseView extends LinearLayout {
 
         ExpenseDatabase db = ExpenseDatabase.getInstance(context);
 
-        AdapterView.OnItemSelectedListener itemSelected =
-            new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> parent, View view,
-                                           int position, long id)
-                {
-                    contentChanged();
-                }
-
-                public void onNothingSelected(AdapterView<?> parent) {
-                    // nothing to do
-                }
-            };
-
-        setAccountData(R.id.from_account, db.getFromAccountList(),
-                       itemSelected);
-        setAccountData(R.id.to_account, db.getToAccountList(),
-                       itemSelected);
+        setAccountData(R.id.from_account, db.getFromAccountList());
+        setAccountData(R.id.to_account, db.getToAccountList());
 
         expenseDateView = (TextView) findViewById(R.id.expense_date);
         expenseAmount = (EditText) findViewById(R.id.expense_amount);
@@ -225,8 +228,7 @@ public class ExpenseView extends LinearLayout {
 
     // implementation
 
-    private void setAccountData(int id, Cursor data,
-                                AdapterView.OnItemSelectedListener selected) {
+    private void setAccountData(int id, Cursor data) {
         Spinner spinner = (Spinner) findViewById(id);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
             context, android.R.layout.simple_spinner_item, data,
@@ -238,7 +240,7 @@ public class ExpenseView extends LinearLayout {
         ((Activity) context).startManagingCursor(data); // TODO deprecated
 
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(selected);
+        spinner.setOnItemSelectedListener(new SelectionChangedListener());
     }
 
     private int getAccountId(int id) {
