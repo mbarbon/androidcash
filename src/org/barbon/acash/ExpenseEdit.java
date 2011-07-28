@@ -5,16 +5,13 @@
 
 package org.barbon.acash;
 
-import android.app.Activity;
-
 import android.view.View;
 
-public abstract class ExpenseEdit extends Activity {
+public abstract class ExpenseEdit extends ItemEdit {
     protected ExpenseView expenseView;
     protected View actionButton;
 
     protected long expenseId = -1;
-    protected boolean contentModified;
 
     // enable/disable the action button
     protected ExpenseView.OnContentChangedListener onExpenseChanged =

@@ -5,16 +5,13 @@
 
 package org.barbon.acash;
 
-import android.app.Activity;
-
 import android.view.View;
 
-public abstract class AccountEdit extends Activity {
+public abstract class AccountEdit extends ItemEdit {
     protected AccountView accountView;
     protected View actionButton;
 
     protected long accountId = -1;
-    protected boolean contentModified;
 
     // enable/disable the action button
     protected AccountView.OnContentChangedListener onAccountChanged =

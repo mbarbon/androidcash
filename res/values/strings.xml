@@ -20,6 +20,11 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
 
+    <!-- discard changes dialog -->
+    <string name="item_modified_title">Unsaved changes</string>
+    <string name="item_modified_message">There are unsaved changes, do you really want to discard them?</string>
+    <string name="discard_changes">Discard</string>
+
     <!-- menu -->
     <string name="about_acash">About</string>
     <string name="new_expense">New expense</string>
