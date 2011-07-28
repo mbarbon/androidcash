@@ -27,6 +27,7 @@ public class AboutDialog extends Dialog {
         click2.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
+    @Override
     public void onBackPressed() {
         // saves "displayed_about" more oft than needed, but it should
         // not be a problem
