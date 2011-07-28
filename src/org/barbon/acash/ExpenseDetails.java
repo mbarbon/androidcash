@@ -5,7 +5,6 @@
 
 package org.barbon.acash;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 
 import android.content.DialogInterface;
@@ -14,12 +13,7 @@ import android.os.Bundle;
 
 import android.view.View;
 
-public class ExpenseDetails extends Activity {
-    private ExpenseView expenseView;
-    private View updateButton;
-
-    private long expenseId;
-
+public class ExpenseDetails extends ExpenseEdit {
     private DialogInterface.OnClickListener deleteExpense =
         new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int button) {
@@ -36,15 +30,6 @@ public class ExpenseDetails extends Activity {
 
     public static final String EXPENSE_ID = "expenseId";
 
-    // enable/disable the 'update expense' button
-    private ExpenseView.OnContentChangedListener onExpenseChanged =
-        new ExpenseView.OnContentChangedListener() {
-            public void onContentChanged(ExpenseView view) {
-                updateButton.setEnabled(view.isValidExpense());
-            }
-        };
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +38,7 @@ public class ExpenseDetails extends Activity {
         expenseId = getIntent().getLongExtra(EXPENSE_ID, -1);;
 
         expenseView = (ExpenseView) findViewById(R.id.expense_view);
-        updateButton = findViewById(R.id.update_expense);
+        actionButton = findViewById(R.id.update_expense);
 
         expenseView.setOnContentChangedListener(onExpenseChanged);
         expenseView.setExpenseId(expenseId);

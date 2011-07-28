@@ -5,7 +5,6 @@
 
 package org.barbon.acash;
 
-import android.app.Activity;
 import android.app.Dialog;
 
 import android.content.DialogInterface;
@@ -23,19 +22,8 @@ import android.widget.DatePicker;
 
 import java.util.Date;
 
-public class NewExpense extends Activity {
-    private ExpenseView expenseView;
-    private View addButton;
-
+public class NewExpense extends ExpenseEdit {
     private static final int ABOUT_DIALOG = 1;
-
-    // enable/disable the 'add expense' button
-    private ExpenseView.OnContentChangedListener onExpenseChanged =
-        new ExpenseView.OnContentChangedListener() {
-            public void onContentChanged(ExpenseView view) {
-                addButton.setEnabled(view.isValidExpense());
-            }
-        };
 
     /** Called when the activity is first created. */
     @Override
@@ -44,7 +32,7 @@ public class NewExpense extends Activity {
         setContentView(R.layout.newexpense);
 
         expenseView = (ExpenseView) findViewById(R.id.expense_view);
-        addButton = findViewById(R.id.add_expense);
+        actionButton = findViewById(R.id.add_expense);
 
         expenseView.setOnContentChangedListener(onExpenseChanged);
     }
