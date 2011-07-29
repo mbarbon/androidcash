@@ -62,13 +62,26 @@ public class AccountDetails extends AccountEdit {
     }
 
     public void onDeleteAccount(View v) {
-        AlertDialog.Builder confirm = new AlertDialog.Builder(this);
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
-        confirm.setTitle(accountView.getAccountDescription());
-        confirm.setMessage(R.string.alert_delete_account);
-        confirm.setPositiveButton(R.string.delete, deleteAccount);
-        confirm.setNegativeButton(R.string.cancel, null);
+        if (db.accountHasExpenses(accountId)) {
+            AlertDialog.Builder deny = new AlertDialog.Builder(this);
 
-        confirm.show();
+            deny.setTitle(accountView.getAccountDescription());
+            deny.setMessage(R.string.alert_account_has_expenses);
+            deny.setNegativeButton(R.string.cancel, null);
+
+            deny.show();
+        }
+        else {
+            AlertDialog.Builder confirm = new AlertDialog.Builder(this);
+
+            confirm.setTitle(accountView.getAccountDescription());
+            confirm.setMessage(R.string.alert_delete_account);
+            confirm.setPositiveButton(R.string.delete, deleteAccount);
+            confirm.setNegativeButton(R.string.cancel, null);
+
+            confirm.show();
+        }
     }
 }

@@ -30,6 +30,9 @@
     <string name="expenses_exported_title">Expenses successfully exported</string>
     <string name="expenses_exported">The expenses have been exported to a QIF file\n\nPlease connect your device via USB and import the acash.qif file from the AndroidCash directory into GnuCash</string>
 
+    <!-- account has expenses -->
+    <string name="alert_account_has_expenses">There are expenses registered on this account: please delete them before trying to delete the account.</string>
+
     <!-- menu -->
     <string name="about_acash">About</string>
     <string name="new_expense">New expense</string>
@@ -39,7 +42,7 @@
     <string name="add_account">Add account</string>
 
     <!-- account detail -->
-    <string name="alert_delete_account">Are you sure you want to permanently delete the account and all associated expenses?</string>
+    <string name="alert_delete_account">Are you sure you want to permanently delete the account?</string>
     <string name="update_account">Update account</string>
     <string name="delete_account">Delete account</string>
 
