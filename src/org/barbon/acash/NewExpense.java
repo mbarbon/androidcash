@@ -46,6 +46,9 @@ public class NewExpense extends ExpenseEdit {
         // first-time only about dialog
         if (AboutDialog.showFirstTime(this))
             showDialog(ABOUT_DIALOG);
+
+        // start state is always invalid
+        actionButton.setEnabled(false);
     }
 
     @Override
