@@ -25,6 +25,8 @@ import java.util.Date;
 public class NewExpense extends ExpenseEdit {
     private static final int ABOUT_DIALOG = 1;
 
+    private static boolean redirectedToNewAccount;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +119,10 @@ public class NewExpense extends ExpenseEdit {
     // implementation
 
     private void showNewAccountIfNeeded() {
+        if (redirectedToNewAccount)
+            return;
+        redirectedToNewAccount = true;
+
         ExpenseDatabase db = ExpenseDatabase.getInstance(this);
 
         if (db.getAccountCount() < 2)
