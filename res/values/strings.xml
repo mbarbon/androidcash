@@ -10,8 +10,6 @@
     <string name="add_expense">Add expense</string>
     <string name="from_expense_template">Use template</string>
     <string name="new_account">New account</string>
-    <string name="account_description">Description</string>
-    <string name="gnucash_account_name">GNUCash account</string>
     <string name="expense_list">Expenses</string>
     <string name="account_list">Accounts</string>
     <string name="expense_description_prompt">Description</string>
@@ -20,6 +18,10 @@
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="delete">Delete</string>
+
+    <!-- new account/edit account -->
+    <string name="account_description">Description</string>
+    <string name="gnucash_account_name">GnuCash account (use \':\' as separator)</string>
 
     <!-- discard changes dialog -->
     <string name="item_modified_title">Unsaved changes</string>
