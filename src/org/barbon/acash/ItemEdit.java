@@ -9,9 +9,13 @@ import android.app.AlertDialog;
 
 import android.content.DialogInterface;
 
+import android.os.Bundle;
+
 import org.barbon.acash.compat.CompatActivity;
 
 public abstract class ItemEdit extends CompatActivity {
+    private static final String CONTENT_MODIFIED = "ITEM_EDIT_CONTENT_MODIFIED";
+
     protected boolean contentModified;
 
     // discard changes
@@ -21,6 +25,28 @@ public abstract class ItemEdit extends CompatActivity {
                 finish();
             }
         };
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+
+        bundle.putBoolean(CONTENT_MODIFIED, contentModified);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle bundle) {
+        super.onRestoreInstanceState(bundle);
+
+        contentModified = bundle.getBoolean(CONTENT_MODIFIED, false);
+    }
+
+    protected void retrieveContentModified(Bundle savedInstanceState) {
+        if (savedInstanceState != null)
+            contentModified =
+                savedInstanceState.getBoolean(CONTENT_MODIFIED, false);
+        else
+            contentModified = false;
+    }
 
     @Override
     public void onBackPressed() {

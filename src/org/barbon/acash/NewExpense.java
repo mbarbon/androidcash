@@ -37,8 +37,7 @@ public class NewExpense extends ExpenseEdit {
 
         expenseView.setOnContentChangedListener(onExpenseChanged);
 
-        contentModified = false;
-
+        retrieveContentModified(savedInstanceState);
         // enable/disable button when the activity is created
         actionButton.setEnabled(expenseView.isValidExpense());
     }

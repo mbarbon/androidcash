@@ -44,7 +44,7 @@ public class AccountDetails extends AccountEdit {
 
         accountView.setAccountId(accountId);
 
-        contentModified = false;
+        retrieveContentModified(savedInstanceState);
     }
 
     // event handlers

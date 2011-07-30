@@ -43,7 +43,7 @@ public class ExpenseDetails extends ExpenseEdit {
         expenseView.setOnContentChangedListener(onExpenseChanged);
         expenseView.setExpenseId(expenseId);
 
-        contentModified = false;
+        retrieveContentModified(savedInstanceState);
     }
 
     // event handlers

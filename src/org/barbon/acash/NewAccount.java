@@ -24,7 +24,7 @@ public class NewAccount extends AccountEdit {
         accountView.setGnuCashAccount("");
         displayHelpMessage();
 
-        contentModified = false;
+        retrieveContentModified(savedInstanceState);
     }
 
     // implementation
