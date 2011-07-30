@@ -27,7 +27,6 @@ public class NewExpense extends ExpenseEdit {
 
     private static boolean redirectedToNewAccount;
 
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +38,9 @@ public class NewExpense extends ExpenseEdit {
         expenseView.setOnContentChangedListener(onExpenseChanged);
 
         contentModified = false;
+
+        // enable/disable button when the activity is created
+        actionButton.setEnabled(expenseView.isValidExpense());
     }
 
     @Override
@@ -48,9 +50,6 @@ public class NewExpense extends ExpenseEdit {
         // first-time only about dialog
         if (AboutDialog.showFirstTime(this))
             showDialog(ABOUT_DIALOG);
-
-        // start state is always invalid
-        actionButton.setEnabled(false);
     }
 
     @Override
