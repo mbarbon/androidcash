@@ -64,8 +64,7 @@ public class NewExpense extends ExpenseEdit {
 
     @Override
     protected Dialog onCreateDialog(int id, Bundle bundle) {
-        if (id == ABOUT_DIALOG)
-        {
+        if (id == ABOUT_DIALOG) {
             Dialog about = new AboutDialog(this);
 
             // go to the 'new account' activity if < 2 accounts
