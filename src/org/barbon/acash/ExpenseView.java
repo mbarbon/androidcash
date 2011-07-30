@@ -52,6 +52,9 @@ public class ExpenseView extends LinearLayout {
     }
 
     private OnContentChangedListener contentChangedListener;
+    private TextWatcher textChanged = new TextContentChanged();
+    private SelectionChangedListener selectionChanged =
+        new SelectionChangedListener();
 
     // update expense date
     private DatePickerDialog.OnDateSetListener dateSet =
@@ -90,15 +93,30 @@ public class ExpenseView extends LinearLayout {
 
     private class SelectionChangedListener
         implements AdapterView.OnItemSelectedListener {
-        private long currentId = -1;
+        // this is disgusting, but I could not find a better solution:
+        // the Spinner emits an onItemSelected() notification some
+        // time after creation (probably after the adapter completes
+        // loading from the database); to avoid emitting spurious
+        // 'changed' notifications, the code below ignores the first
+        // two 'selected' notifications after notifications are
+        // enabled
+        int skipCount = 0;
+
+        public void resetSkipCount() {
+            skipCount = 0;
+        }
 
         public void onItemSelected(AdapterView<?> parent, View view,
                                    int position, long id)
         {
-            if (currentId != -1 && currentId != id)
-                contentChanged();
+            // see comment about skipCount
+            if (skipCount < 2) {
+                skipCount += 1;
 
-            currentId = id;
+                return;
+            }
+
+            contentChanged();
         }
 
         public void onNothingSelected(AdapterView<?> parent) {
@@ -123,15 +141,38 @@ public class ExpenseView extends LinearLayout {
         expenseAmount = (EditText) findViewById(R.id.expense_amount);
         expenseDescription = (EditText) findViewById(R.id.expense_description);
 
-        TextWatcher textChanged = new TextContentChanged();
-
-        expenseAmount.addTextChangedListener(textChanged);
-        expenseDescription.addTextChangedListener(textChanged);
-
         expenseDateView.setOnClickListener(dateClicked);
 
         setExpenseDate(new Date());
         expenseAmount.setText("");
+    }
+
+    public void disableNotifications() {
+        Spinner spinner;
+
+        expenseAmount.removeTextChangedListener(textChanged);
+        expenseDescription.removeTextChangedListener(textChanged);
+
+        spinner = (Spinner) findViewById(R.id.from_account);
+        spinner.setOnItemSelectedListener(null);
+
+        spinner = (Spinner) findViewById(R.id.to_account);
+        spinner.setOnItemSelectedListener(null);
+    }
+
+    public void enableNotifications() {
+        Spinner spinner;
+
+        expenseAmount.addTextChangedListener(textChanged);
+        expenseDescription.addTextChangedListener(textChanged);
+
+        spinner = (Spinner) findViewById(R.id.from_account);
+        spinner.setOnItemSelectedListener(selectionChanged);
+
+        spinner = (Spinner) findViewById(R.id.to_account);
+        spinner.setOnItemSelectedListener(selectionChanged);
+
+        selectionChanged.resetSkipCount();
     }
 
     public void setExpenseId(long id) {
@@ -240,7 +281,6 @@ public class ExpenseView extends LinearLayout {
         ((Activity) context).startManagingCursor(data); // TODO deprecated
 
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new SelectionChangedListener());
     }
 
     private int getAccountId(int id) {

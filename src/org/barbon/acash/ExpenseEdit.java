@@ -21,4 +21,18 @@ public abstract class ExpenseEdit extends ItemEdit {
                 contentModified = true;
             }
         };
+
+    @Override
+    public void onPause() {
+        expenseView.disableNotifications();
+
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        expenseView.enableNotifications();
+    }
 }
