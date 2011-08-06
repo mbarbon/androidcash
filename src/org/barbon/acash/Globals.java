@@ -28,6 +28,9 @@ public class Globals {
     public static final Intent EXPENSE_DETAILS_INTENT =
         new Intent("org.barbon.acash.EXPENSE_DETAILS");
 
+    public static final Intent BROWSE_GNUCASH_FILES =
+        new Intent("org.barbon.acash.BROWSE_GNUCASH_FILES");
+
     // formats
 
     public static final String NUMBER_FORMAT = "#.######";

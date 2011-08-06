@@ -48,5 +48,11 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity android:name=".BrowseGnuCash">
+      <intent-filter>
+        <action android:name="org.barbon.acash.BROWSE_GNUCASH_FILES" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
   </application>
-</manifest> 
+</manifest>
