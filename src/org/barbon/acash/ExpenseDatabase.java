@@ -131,7 +131,7 @@ public class ExpenseDatabase {
         return count > 0;
     }
 
-    public boolean insertAccount(String description, String gnuCash) {
+    private boolean doInsert(String description, String gnuCash) {
         SQLiteDatabase db = getDatabase();
         ContentValues vals = new ContentValues();
 
@@ -139,6 +139,17 @@ public class ExpenseDatabase {
         vals.put(GNUCASH_ACCOUNT_COLUMN, gnuCash);
 
         return db.insert(ACCOUNTS_TABLE, null, vals) == 1;
+    }
+
+    public boolean insertAccountIfNeeded(String description, String gnuCash) {
+        if (isAccountDuplicate("", gnuCash, -1))
+            return true;
+
+        return doInsert(description, gnuCash);
+    }
+
+    public boolean insertAccount(String description, String gnuCash) {
+        return doInsert(description, gnuCash);
     }
 
     public boolean updateAccount(long id, String description, String gnuCash) {
