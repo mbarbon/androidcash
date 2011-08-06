@@ -142,6 +142,10 @@ public class XmlAccounts {
         gnuCashFile = file;
     }
 
+    public XmlAccounts(String file) {
+        this(new File(file));
+    }
+
     public List<GnuCashAccount> getAccounts() {
         if (gnuCashAccounts != null)
             return gnuCashAccounts;

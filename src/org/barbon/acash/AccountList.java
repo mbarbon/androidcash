@@ -22,7 +22,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import org.barbon.acash.importer.GnuCashAccount;
+import org.barbon.acash.importer.XmlAccounts;
+
 public class AccountList extends ListActivity {
+    private static final int BROWSE_FILE = 0;
+
     private AdapterView.OnItemClickListener clickListener =
         new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -60,9 +65,28 @@ public class AccountList extends ListActivity {
             startActivity(Globals.NEW_ACCOUNT_INTENT);
 
             return true;
+        case R.id.import_from_gnucash:
+            startActivityForResult(Globals.BROWSE_GNUCASH_FILES, BROWSE_FILE);
+
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode != BROWSE_FILE || resultCode == RESULT_CANCELED)
+            return;
+
+        String importFile = data.getStringExtra(BrowseGnuCash.FILE_NAME);
+
+        XmlAccounts accounts = new XmlAccounts(importFile);
+        ExpenseDatabase db = ExpenseDatabase.getInstance(this);
+
+        for (GnuCashAccount account : accounts.getAccounts())
+            db.insertAccountIfNeeded(account.description, account.fullName);
     }
 
     // implementation

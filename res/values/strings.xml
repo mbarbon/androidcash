@@ -19,6 +19,9 @@
     <string name="ok">OK</string>
     <string name="delete">Delete</string>
 
+    <!-- account list -->
+    <string name="import_from_gnucash">Import from GnuCash</string>
+
     <!-- new account/edit account -->
     <string name="account_description">Description</string>
     <string name="gnucash_account_name">GnuCash account (use \':\' as separator)</string>
