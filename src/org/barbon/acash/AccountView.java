@@ -13,11 +13,14 @@ import android.text.TextWatcher;
 
 import android.util.AttributeSet;
 
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 public class AccountView extends LinearLayout {
     private EditText description, gnuCash;
+    private CheckBox hidden;
 
     public interface OnContentChangedListener {
         public void onContentChanged(AccountView view);
@@ -43,6 +46,13 @@ public class AccountView extends LinearLayout {
         }
     }
 
+    private class CheckBoxChanged
+        implements CompoundButton.OnCheckedChangeListener {
+        public void onCheckedChanged(CompoundButton button, boolean isChecked) {
+            contentChanged();
+        }
+    }
+
     public AccountView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -51,11 +61,13 @@ public class AccountView extends LinearLayout {
 
         description = (EditText) findViewById(R.id.account_description);
         gnuCash = (EditText) findViewById(R.id.gnucash_account);
+        hidden = (CheckBox) findViewById(R.id.account_hidden);
 
         TextWatcher textChanged = new TextContentChanged();
 
         description.addTextChangedListener(textChanged);
         gnuCash.addTextChangedListener(textChanged);
+        hidden.setOnCheckedChangeListener(new CheckBoxChanged());
     }
 
     public void setAccountId(long id) {
@@ -66,6 +78,12 @@ public class AccountView extends LinearLayout {
             (String) vals.get(ExpenseDatabase.ACCOUNT_DESCRIPTION_COLUMN));
         setGnuCashAccount(
             (String) vals.get(ExpenseDatabase.GNUCASH_ACCOUNT_COLUMN));
+        setAccountHidden(
+            (boolean) vals.getAsBoolean(ExpenseDatabase.ACCOUNT_HIDDEN_COLUMN));
+    }
+
+    public void showAccountHidden(boolean show) {
+        hidden.setVisibility(show ? VISIBLE : GONE);
     }
 
     // accessors
@@ -84,6 +102,14 @@ public class AccountView extends LinearLayout {
 
     public void setGnuCashAccount(String name) {
         gnuCash.setText(name);
+    }
+
+    public boolean isAccountHidden() {
+        return hidden.isChecked();
+    }
+
+    public void setAccountHidden(boolean hide) {
+        hidden.setChecked(hide);
     }
 
     public boolean isValidAccount() {

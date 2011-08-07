@@ -25,6 +25,7 @@
     <!-- new account/edit account -->
     <string name="account_description">Description</string>
     <string name="gnucash_account_name">GnuCash account (use \':\' as separator)</string>
+    <string name="account_hidden">Hidden</string>
 
     <!-- discard changes dialog -->
     <string name="item_modified_title">Unsaved changes</string>
