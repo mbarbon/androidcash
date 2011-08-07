@@ -233,8 +233,10 @@ public class ExpenseDatabase {
     public ContentValues getAccount(long id) {
         SQLiteDatabase db = getDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT id AS _id, " + ACCOUNT_DESCRIPTION_COLUMN + ", " +
-                    GNUCASH_ACCOUNT_COLUMN +
+            "SELECT id AS _id, " +
+                    ACCOUNT_DESCRIPTION_COLUMN + ", " +
+                    GNUCASH_ACCOUNT_COLUMN + ", " +
+                    ACCOUNT_HIDDEN_COLUMN +
             "    FROM " + ACCOUNTS_TABLE +
             "    WHERE id = ?", new String[] { Long.toString(id) });
 
@@ -245,6 +247,8 @@ public class ExpenseDatabase {
 
             vals.put(ACCOUNT_DESCRIPTION_COLUMN, cursor.getString(1));
             vals.put(GNUCASH_ACCOUNT_COLUMN, cursor.getString(2));
+            vals.put(ACCOUNT_HIDDEN_COLUMN,
+                     cursor.getInt(3) == 0 ? false : true);
         }
 
         cursor.close();
