@@ -376,7 +376,7 @@ public class ExpenseDatabase {
     private static class ExpenseOpenHelper extends SQLiteOpenHelper {
         private static final String ACCOUNTS_TABLE_CREATE =
             "CREATE TABLE " + ACCOUNTS_TABLE + " ( " +
-            "id INTEGER PRIMARY KEY," +
+            "id INTEGER PRIMARY KEY, " +
             GNUCASH_ACCOUNT_COLUMN + " TEXT UNIQUE, " +
             ACCOUNT_DESCRIPTION_COLUMN + " TEXT UNIQUE, " +
             ACCOUNT_HIDDEN_COLUMN + " INTEGER NOT NULL DEFAULT 0" +
@@ -384,7 +384,7 @@ public class ExpenseDatabase {
 
         private static final String EXPENSES_TABLE_CREATE =
             "CREATE TABLE " + EXPENSES_TABLE + " ( " +
-            "id INTEGER PRIMARY KEY," +
+            "id INTEGER PRIMARY KEY, " +
             FROM_ACCOUNT_COLUMN + " INTEGER, " +
             TO_ACCOUNT_COLUMN + " INTEGER, " +
             EXPENSE_DESCRIPTION_COLUMN + " TEXT, " +
