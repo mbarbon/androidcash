@@ -68,22 +68,28 @@ public class ExpenseDatabase {
         return database;
     }
 
-    public Cursor getFromAccountList() {
+    public Cursor getFromAccountList(long forceId) {
         SQLiteDatabase db = getDatabase();
 
         return db.rawQuery(
             "SELECT id AS _id, " + ACCOUNT_DESCRIPTION_COLUMN +
             "    FROM " + ACCOUNTS_TABLE +
-            "    ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN, null);
+            "    WHERE " + ACCOUNT_HIDDEN_COLUMN + " = 0" +
+            "          OR id = ?" +
+            "    ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN,
+            new String[] { Long.toString(forceId) });
     }
 
-    public Cursor getToAccountList() {
+    public Cursor getToAccountList(long forceId) {
         SQLiteDatabase db = getDatabase();
 
         return db.rawQuery(
             "SELECT id AS _id, " + ACCOUNT_DESCRIPTION_COLUMN +
             "    FROM " + ACCOUNTS_TABLE +
-            "    ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN, null);
+            "    WHERE " + ACCOUNT_HIDDEN_COLUMN + " = 0" +
+            "          OR id = ?" +
+            "    ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN,
+            new String[] { Long.toString(forceId) });
     }
 
     public Cursor getAccountList() {

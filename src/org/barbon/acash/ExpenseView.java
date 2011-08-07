@@ -134,8 +134,8 @@ public class ExpenseView extends LinearLayout {
 
         ExpenseDatabase db = ExpenseDatabase.getInstance(context);
 
-        setAccountData(R.id.from_account, db.getFromAccountList());
-        setAccountData(R.id.to_account, db.getToAccountList());
+        setAccountData(R.id.from_account, db.getFromAccountList(-1));
+        setAccountData(R.id.to_account, db.getToAccountList(-1));
 
         expenseDateView = (TextView) findViewById(R.id.expense_date);
         expenseAmount = (EditText) findViewById(R.id.expense_amount);
@@ -179,13 +179,24 @@ public class ExpenseView extends LinearLayout {
         ExpenseDatabase db = ExpenseDatabase.getInstance(context);
         ContentValues vals = db.getExpense(id);
 
+        // refresh account list including the current account
+        // TODO makes two additional queries even if they are not necessary
+        long fromAccount =
+            vals.getAsInteger(ExpenseDatabase.FROM_ACCOUNT_COLUMN);
+        long toAccount =
+            vals.getAsInteger(ExpenseDatabase.TO_ACCOUNT_COLUMN);
+
+        setAccountData(R.id.from_account, db.getFromAccountList(fromAccount));
+        setAccountData(R.id.to_account, db.getToAccountList(toAccount));
+
         setExpenseDate(vals.getAsInteger(ExpenseDatabase.DATE_YEAR_COLUMN),
                        vals.getAsInteger(ExpenseDatabase.DATE_MONTH_COLUMN),
                        vals.getAsInteger(ExpenseDatabase.DATE_DAY_COLUMN));
         setExpenseAmount(vals.getAsDouble(ExpenseDatabase.AMOUNT_COLUMN));
-        expenseDescription.setText(vals.getAsString(ExpenseDatabase.EXPENSE_DESCRIPTION_COLUMN));
-        setAccountId(R.id.from_account, vals.getAsInteger(ExpenseDatabase.FROM_ACCOUNT_COLUMN));
-        setAccountId(R.id.to_account, vals.getAsInteger(ExpenseDatabase.TO_ACCOUNT_COLUMN));
+        expenseDescription.setText(
+            vals.getAsString(ExpenseDatabase.EXPENSE_DESCRIPTION_COLUMN));
+        setAccountId(R.id.from_account, fromAccount);
+        setAccountId(R.id.to_account, toAccount);
     }
 
     // date accessors
