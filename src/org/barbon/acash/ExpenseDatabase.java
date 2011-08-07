@@ -73,8 +73,8 @@ public class ExpenseDatabase {
 
         return db.rawQuery(
             "SELECT id AS _id, " + ACCOUNT_DESCRIPTION_COLUMN +
-            "     FROM " + ACCOUNTS_TABLE +
-            "     ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN, null);
+            "    FROM " + ACCOUNTS_TABLE +
+            "    ORDER BY " + ACCOUNT_DESCRIPTION_COLUMN, null);
     }
 
     public Cursor getToAccountList() {
