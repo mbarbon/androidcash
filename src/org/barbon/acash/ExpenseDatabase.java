@@ -420,7 +420,7 @@ public class ExpenseDatabase {
         private void upgrade1To2(SQLiteDatabase db) {
             db.execSQL(
                 "ALTER TABLE " + ACCOUNTS_TABLE +
-                "    ADD COLUMN " + ACCOUNT_HIDDEN_COLUMN +
+                "    ADD COLUMN account_hidden" +
                 "        INTEGER NOT NULL DEFAULT 0");
         }
     }
