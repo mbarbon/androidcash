@@ -54,7 +54,8 @@ public class AccountDetails extends AccountEdit {
 
         if (!db.updateAccount(accountId,
                               accountView.getAccountDescription(),
-                              accountView.getGnuCashAccount()))
+                              accountView.getGnuCashAccount(),
+                              accountView.isAccountHidden()))
             // TODO do something
             ;
 

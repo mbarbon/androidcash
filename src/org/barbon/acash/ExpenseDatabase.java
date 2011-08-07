@@ -160,12 +160,14 @@ public class ExpenseDatabase {
         return doInsert(description, gnuCash);
     }
 
-    public boolean updateAccount(long id, String description, String gnuCash) {
+    public boolean updateAccount(long id, String description, String gnuCash,
+                                 boolean hidden) {
         SQLiteDatabase db = getDatabase();
         ContentValues vals = new ContentValues();
 
         vals.put(ACCOUNT_DESCRIPTION_COLUMN, description);
         vals.put(GNUCASH_ACCOUNT_COLUMN, gnuCash);
+        vals.put(ACCOUNT_HIDDEN_COLUMN, hidden ? 1 : 0);
 
         return db.update(ACCOUNTS_TABLE, vals, "id = ?",
                          new String[] { Long.toString(id) }) == 1;
