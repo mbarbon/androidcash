@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ExpenseDatabase {
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final String DATABASE_NAME = "expenses";
 
     private static final String ACCOUNTS_TABLE = "accounts";
@@ -32,6 +32,8 @@ public class ExpenseDatabase {
     public static final String GNUCASH_ACCOUNT_COLUMN = "gc_account";
     public static final String ACCOUNT_DESCRIPTION_COLUMN =
         "account_description";
+    public static final String ACCOUNT_HIDDEN_COLUMN =
+        "account_hidden";
     public static final String FROM_ACCOUNT_COLUMN = "account_from";
     public static final String TO_ACCOUNT_COLUMN = "account_to";
     public static final String DATE_COLUMN = "transaction_date";
@@ -364,7 +366,8 @@ public class ExpenseDatabase {
             "CREATE TABLE " + ACCOUNTS_TABLE + " ( " +
             "id INTEGER PRIMARY KEY," +
             GNUCASH_ACCOUNT_COLUMN + " TEXT UNIQUE, " +
-            ACCOUNT_DESCRIPTION_COLUMN + " TEXT UNIQUE" +
+            ACCOUNT_DESCRIPTION_COLUMN + " TEXT UNIQUE, " +
+            ACCOUNT_HIDDEN_COLUMN + " INTEGER NOT NULL DEFAULT 0" +
             ")";
 
         private static final String EXPENSES_TABLE_CREATE =
@@ -393,8 +396,20 @@ public class ExpenseDatabase {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int from, int to) {
-            throw new UnsupportedOperationException(
-                "Unable to upgrade database");
+            for (int i = from; i < to; ++i) {
+                switch (i) {
+                case 1:
+                    upgrade1To2(db);
+                    break;
+                }
+            }
+        }
+
+        private void upgrade1To2(SQLiteDatabase db) {
+            db.execSQL(
+                "ALTER TABLE " + ACCOUNTS_TABLE +
+                "    ADD COLUMN " + ACCOUNT_HIDDEN_COLUMN +
+                "        INTEGER NOT NULL DEFAULT 0");
         }
     }
 }
