@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ExpenseDatabase {
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
     private static final String DATABASE_NAME = "expenses";
 
     private static final String ACCOUNTS_TABLE = "accounts";
@@ -378,7 +378,7 @@ public class ExpenseDatabase {
             "CREATE TABLE " + ACCOUNTS_TABLE + " ( " +
             "id INTEGER PRIMARY KEY, " +
             GNUCASH_ACCOUNT_COLUMN + " TEXT UNIQUE, " +
-            ACCOUNT_DESCRIPTION_COLUMN + " TEXT UNIQUE, " +
+            ACCOUNT_DESCRIPTION_COLUMN + " TEXT, " +
             ACCOUNT_HIDDEN_COLUMN + " INTEGER NOT NULL DEFAULT 0" +
             ")";
 
@@ -422,6 +422,36 @@ public class ExpenseDatabase {
                 "ALTER TABLE " + ACCOUNTS_TABLE +
                 "    ADD COLUMN account_hidden" +
                 "        INTEGER NOT NULL DEFAULT 0");
+        }
+
+        private void upgrade2To3(SQLiteDatabase db) {
+            db.beginTransaction();
+
+            try {
+                db.execSQL(
+                    "ALTER TABLE " + ACCOUNTS_TABLE +
+                    "    RENAME TO " + ACCOUNTS_TABLE + "_tmp");
+                db.execSQL(
+                    "CREATE TABLE " + ACCOUNTS_TABLE + " ( " +
+                    "id INTEGER PRIMARY KEY, " +
+                    "gc_account TEXT UNIQUE, " +
+                    "account_description TEXT, " +
+                    "account_hidden INTEGER NOT NULL DEFAULT 0" +
+                    ")");
+                db.execSQL(
+                    "INSERT INTO " + ACCOUNTS_TABLE +
+                    "    (id, gc_account, account_description," +
+                    "     account_hidden)" +
+                    "    SELECT id, gc_account, " +
+                    "        account_description, " +
+                    "        account_hidden" +
+                    "    FROM " + ACCOUNTS_TABLE + "_tmp");
+                db.execSQL(
+                    "DROP TABLE " + ACCOUNTS_TABLE + "_tmp");
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
         }
     }
 }
